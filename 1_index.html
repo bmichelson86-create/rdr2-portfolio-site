@@ -471,7 +471,7 @@
     <!-- Home Section -->
     <section class="home-section">
         <div class="home-background">
-            <video id="heroVideo" muted loop playsinline>
+            <video id="heroVideo" autoplay muted loop playsinline>
                 <source src="Hero-video.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -545,6 +545,11 @@
             const heroVideo = document.getElementById('heroVideo');
             const heroImage = document.querySelector('.hero-image');
 
+            // Try to play video immediately for mobile
+            heroVideo.play().catch(function (error) {
+                console.log('Initial autoplay blocked:', error);
+            });
+
             // Wait 3 seconds after page load
             setTimeout(function () {
                 // Fade out the image (0.5s transition)
@@ -554,6 +559,11 @@
                 heroVideo.classList.add('playing');
                 heroVideo.play().catch(function (error) {
                     console.log('Video autoplay failed:', error);
+                    // If autoplay fails, try again on first user interaction
+                    document.addEventListener('touchstart', function playOnTouch() {
+                        heroVideo.play();
+                        document.removeEventListener('touchstart', playOnTouch);
+                    }, { once: true });
                 });
             }, 3000); // 3 second delay
         });

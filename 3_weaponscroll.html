@@ -490,6 +490,16 @@
 
         let currentVideo = 'pistols';
 
+        // Try to play initial video on mobile
+        videos['pistols'].play().catch(error => {
+            console.log('Initial video autoplay blocked:', error);
+            // Fallback: play on first touch
+            document.addEventListener('touchstart', function playOnTouch() {
+                videos['pistols'].play();
+                document.removeEventListener('touchstart', playOnTouch);
+            }, { once: true });
+        });
+
         function switchVideo(category) {
             if (category === currentVideo || !videos[category]) return;
 
@@ -501,7 +511,9 @@
             // Show new video
             videos[category].classList.remove('hidden');
             videos[category].classList.add('active');
-            videos[category].play();
+            videos[category].play().catch(error => {
+                console.log('Video play failed:', error);
+            });
 
             currentVideo = category;
         }
@@ -513,6 +525,12 @@
             box.addEventListener('mouseenter', () => {
                 switchVideo(category);
                 hideInstructions(); // Hide instructions on first hover
+            });
+
+            // Add touch support for mobile
+            box.addEventListener('touchstart', () => {
+                switchVideo(category);
+                hideInstructions();
             });
 
             box.addEventListener('click', () => {

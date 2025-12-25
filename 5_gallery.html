@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         @import url('https://fonts.cdnfonts.com/css/chinese-rocks');
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -36,20 +37,20 @@
             z-index: 1000;
             border-bottom: 2px solid #EA2424;
         }
-        
+
         .logo-text {
             font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
             font-size: 1.8rem;
             color: #EA2424;
             letter-spacing: 3px;
         }
-        
+
         .nav-links {
             display: flex;
             gap: 30px;
             align-items: center;
         }
-        
+
         .nav-links a {
             font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
             color: #d4a574;
@@ -61,12 +62,12 @@
             padding: 8px 15px;
             position: relative;
         }
-        
+
         .nav-links a:hover {
             color: #EA2424;
             border-bottom: 2px solid #EA2424;
         }
-        
+
         .nav-links a.active {
             color: #EA2424;
             border-bottom: 2px solid #EA2424;
@@ -120,7 +121,7 @@
             font-size: 2.2vw;
             color: #d4a574;
             margin: 0 0 20px 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.9);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
             letter-spacing: 3px;
             text-transform: uppercase;
         }
@@ -130,11 +131,11 @@
             font-size: 1.5vw;
             line-height: 1.5;
             color: #d4a574;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             header {
@@ -142,65 +143,66 @@
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .logo-text {
                 font-size: 1.4rem;
             }
-            
+
             .nav-links {
                 flex-wrap: wrap;
                 gap: 12px;
                 justify-content: center;
             }
-            
+
             .nav-links a {
                 font-size: 0.75rem;
                 padding: 5px 10px;
             }
-            
+
             .text-container {
                 left: 5%;
                 right: 5%;
                 max-width: 90%;
             }
-            
+
             .text-container h2 {
                 font-size: 5vw;
             }
-            
+
             .text-container p {
                 font-size: 3.5vw;
             }
         }
-        
+
         @media (max-width: 480px) {
             header {
                 padding: 8px 15px;
             }
-            
+
             .logo-text {
                 font-size: 1.2rem;
             }
-            
+
             .nav-links {
                 gap: 8px;
             }
-            
+
             .nav-links a {
                 font-size: 0.65rem;
                 padding: 4px 8px;
             }
-            
+
             .text-container h2 {
                 font-size: 6vw;
             }
-            
+
             .text-container p {
                 font-size: 4vw;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -217,7 +219,7 @@
     </header>
 
     <!-- Gallery Scroll Sections -->
-    
+
     <!-- Camping 1 -->
     <div class="scroll-wrapper">
         <section class="pin-section">
@@ -401,6 +403,23 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        // Mobile video playback fallback
+        const allVideos = document.querySelectorAll('video');
+        let videosPlayed = false;
+
+        // Try to play all videos on first touch (mobile fallback)
+        document.addEventListener('touchstart', function playVideosOnTouch() {
+            if (!videosPlayed) {
+                allVideos.forEach(video => {
+                    video.play().catch(error => {
+                        console.log('Video play failed:', error);
+                    });
+                });
+                videosPlayed = true;
+                document.removeEventListener('touchstart', playVideosOnTouch);
+            }
+        }, { once: true });
+
         const sections = [
             'camping1', 'camping2', 'camping3',
             'shootout1', 'shootout2', 'shootout3',
@@ -416,7 +435,7 @@
             if (index === 0) {
                 gsap.set(imgElement, { opacity: 1, scale: 1 });
                 gsap.set(textElement, { opacity: 1, x: 0 });
-                
+
                 // Fade out camping1 quickly when scrolling
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -441,7 +460,7 @@
                     scale: 0.8,
                     ease: "power2.inOut"
                 }, 0.3);
-                
+
                 return;
             }
 
@@ -457,7 +476,7 @@
             });
 
             // Fade in image (starts immediately)
-            tl.fromTo(imgElement, 
+            tl.fromTo(imgElement,
                 { opacity: 0, scale: 0.8 },
                 { opacity: 1, scale: 1, ease: "power2.inOut" },
                 0
@@ -486,4 +505,5 @@
         });
     </script>
 </body>
+
 </html>
