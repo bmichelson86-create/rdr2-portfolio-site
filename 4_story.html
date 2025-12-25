@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Dead Redemption 2 - Story</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chinese Rocks', 'Impact', sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles - Matching index */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .logo-text {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            font-size: 1.8rem;
+            color: #EA2424;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .nav-links a.active {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .story-container {
+            max-width: 1200px;
+            margin: 120px auto 120px;
+            padding: 0 40px 100px;
+        }
+
+        .story-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .story-header h1 {
+            font-size: 5rem;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .story-header p {
+            font-size: 1.5rem;
+            color: #d4a574;
+            letter-spacing: 2px;
+        }
+
+        .story-section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .story-section h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #EA2424;
+            letter-spacing: 4px;
+            border-bottom: 3px solid #d4a574;
+            padding-bottom: 15px;
+        }
+
+        .story-section p {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .chapter-card {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #d4a574;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chapter-card:hover {
+            border-color: #EA2424;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(234, 36, 36, 0.5);
+        }
+
+        .chapter-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .chapter-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .chapter-info {
+            padding: 25px;
+        }
+
+        .chapter-info h3 {
+            font-size: 1.8rem;
+            color: #EA2424;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .chapter-info p {
+            font-size: 1.2rem;
+            color: #d4a574;
+            line-height: 1.6;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            border: 3px solid #EA2424;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 3rem;
+            color: #EA2424;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            font-family: 'Chinese Rocks', sans-serif;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        .lightbox-caption {
+            text-align: center;
+            color: #d4a574;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 25px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+
+            .story-container {
+                margin: 140px auto 60px;
+                padding: 0 20px 60px;
+            }
+
+            .story-header h1 {
+                font-size: 3rem;
+                letter-spacing: 5px;
+            }
+
+            .story-header p {
+                font-size: 1.2rem;
+            }
+
+            .story-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .story-section p {
+                font-size: 1.4rem;
+            }
+
+            .chapter-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .chapter-info h3 {
+                font-size: 1.5rem;
+            }
+
+            .chapter-info p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.65rem;
+                padding: 4px 8px;
+            }
+
+            .story-header h1 {
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+
+            .story-header p {
+                font-size: 1rem;
+            }
+
+            .story-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .story-section p {
+                font-size: 1.2rem;
+            }
+
+            .chapter-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .chapter-info p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-text">RDR2</div>
+        <nav class="nav-links">
+            <a href="1_index.html">HOME</a>
+            <a href="2_characters.html">CHARACTERS</a>
+            <a href="3_weaponscroll.html">WEAPONS</a>
+            <a href="4_story.html" class="active">STORY</a>
+            <a href="5_gallery.html">GALLERY</a>
+            <a href="6_about.html">ABOUT</a>
+            <a href="7_horizontal_scroll.html">LOCATIONS</a>
+        </nav>
+    </header>
+
+    <div class="story-container">
+        <div class="story-header">
+            <h1>THE STORY</h1>
+            <p>The Fall of the Van der Linde Gang</p>
+        </div>
+
+        <div class="story-section">
+            <h2>The End of an Era</h2>
+            <p>
+                America, 1899. The end of the Wild West era has begun. After a robbery goes badly wrong in the western
+                town of Blackwater, Arthur Morgan and the Van der Linde gang are forced to flee. With federal agents and
+                the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their
+                way across the rugged heartland of America in order to survive.
+            </p>
+            <p>
+                As deepening internal divisions threaten to tear the gang apart, Arthur must make a choice between his
+                own ideals and loyalty to the gang who raised him.
+            </p>
+        </div>
+
+        <div class="story-section">
+            <h2>Major Chapters</h2>
+            <div class="chapter-grid">
+                <div class="chapter-card" onclick="openLightbox('camp1.png', 'Chapter 1: Colter')">
+                    <img src="camp1.png" alt="Colter Camp">
+                    <div class="chapter-info">
+                        <h3>Chapter 1: Colter</h3>
+                        <p>The gang escapes through the mountains in a blizzard after the Blackwater massacre.</p>
+                    </div>
+                </div>
+
+                <div class="chapter-card" onclick="openLightbox('camp2.png', 'Chapter 2: Horseshoe Overlook')">
+                    <img src="camp2.png" alt="Horseshoe Overlook">
+                    <div class="chapter-info">
+                        <h3>Chapter 2: Horseshoe Overlook</h3>
+                        <p>The gang sets up camp in Valentine and starts rebuilding their resources.</p>
+                    </div>
+                </div>
+
+                <div class="chapter-card" onclick="openLightbox('camp3.png', 'Chapter 3: Clemens Point')">
+                    <img src="camp3.png" alt="Clemens Point">
+                    <div class="chapter-info">
+                        <h3>Chapter 3: Clemens Point</h3>
+                        <p>Moving to Rhodes, tensions rise as the gang gets caught between feuding families.</p>
+                    </div>
+                </div>
+
+                <div class="chapter-card" onclick="openLightbox('camp4.png', 'Chapter 4: Saint Denis')">
+                    <img src="camp4.png" alt="Saint Denis">
+                    <div class="chapter-info">
+                        <h3>Chapter 4: Saint Denis</h3>
+                        <p>The gang attempts a big score in the city, but things spiral out of control.</p>
+                    </div>
+                </div>
+
+                <div class="chapter-card" onclick="openLightbox('camp5.png', 'Chapter 5: Guarma')">
+                    <img src="camp5.png" alt="Guarma">
+                    <div class="chapter-info">
+                        <h3>Chapter 5: Guarma</h3>
+                        <p>Shipwrecked on a Caribbean island, the gang fights to survive and escape.</p>
+                    </div>
+                </div>
+
+                <div class="chapter-card" onclick="openLightbox('camp6.png', 'Chapter 6: Beaver Hollow')">
+                    <img src="camp6.png" alt="Beaver Hollow">
+                    <div class="chapter-info">
+                        <h3>Chapter 6: Beaver Hollow</h3>
+                        <p>Back in America, the gang falls apart as betrayals come to light.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-section">
+            <h2>Themes</h2>
+            <p>
+                Red Dead Redemption 2 explores themes of loyalty, morality, and the cost of violence. As Arthur Morgan
+                confronts his own mortality, he must reckon with the choices he's made and the life he's lived. The
+                story questions what it means to be an outlaw when the world is changing, and whether redemption is
+                possible for those who've lived by the gun.
+            </p>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate story sections on scroll
+        gsap.utils.toArray('.story-section').forEach(section => {
+            gsap.to(section, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1
+                }
+            });
+        });
+
+        // Lightbox functions
+        function openLightbox(imageSrc, caption) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+
+            lightboxImg.src = imageSrc;
+            lightboxCaption.textContent = caption;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+
+</html>

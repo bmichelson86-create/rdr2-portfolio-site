@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Dead Redemption 2 - Gallery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chinese Rocks', 'Impact', sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            border-bottom: 2px solid #EA2424;
+        }
+        
+        .logo-text {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            font-size: 1.8rem;
+            color: #EA2424;
+            letter-spacing: 3px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+        
+        .nav-links a.active {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        /* Gallery Scroll Sections */
+        .scroll-wrapper {
+            height: 100vh;
+        }
+
+        .pin-section {
+            position: sticky;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-layer img,
+        .image-layer video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        /* Text Container */
+        .text-container {
+            position: absolute;
+            z-index: 50;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 500px;
+            opacity: 0;
+        }
+
+        .text-container h2 {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            font-size: 2.2vw;
+            color: #d4a574;
+            margin: 0 0 20px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.9);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .text-container p {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            font-size: 1.5vw;
+            line-height: 1.5;
+            color: #d4a574;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 25px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            .text-container {
+                left: 5%;
+                right: 5%;
+                max-width: 90%;
+            }
+            
+            .text-container h2 {
+                font-size: 5vw;
+            }
+            
+            .text-container p {
+                font-size: 3.5vw;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 8px 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                gap: 8px;
+            }
+            
+            .nav-links a {
+                font-size: 0.65rem;
+                padding: 4px 8px;
+            }
+            
+            .text-container h2 {
+                font-size: 6vw;
+            }
+            
+            .text-container p {
+                font-size: 4vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-text">RDR2</div>
+        <nav class="nav-links">
+            <a href="1_index.html">HOME</a>
+            <a href="2_characters.html">CHARACTERS</a>
+            <a href="3_weaponscroll.html">WEAPONS</a>
+            <a href="4_story.html">STORY</a>
+            <a href="5_gallery.html" class="active">GALLERY</a>
+            <a href="6_about.html">ABOUT</a>
+            <a href="7_horizontal_scroll.html">LOCATIONS</a>
+        </nav>
+    </header>
+
+    <!-- Gallery Scroll Sections -->
+    
+    <!-- Camping 1 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="camping1-img">
+                <video autoplay muted loop playsinline>
+                    <source src="camping1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="camping1-text">
+                <h2>CAMPING</h2>
+                <p>Arthur sets out to get food for the camp to survive in the harsh wilderness.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Camping 2 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="camping2-img">
+                <video autoplay muted loop playsinline>
+                    <source src="camping2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="camping2-text">
+                <h2>CAMPFIRE</h2>
+                <p>Arthur cooks fresh game at the campfire. Simple survival becomes peaceful.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Camping 3 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="camping3-img">
+                <video autoplay muted loop playsinline>
+                    <source src="camping3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="camping3-text">
+                <h2>NIGHT WATCH</h2>
+                <p>Night falls on camp. Music plays while guards watch for danger.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shootout 1 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="shootout1-img">
+                <video autoplay muted loop playsinline>
+                    <source src="shootout1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="shootout1-text">
+                <h2>HIGH NOON</h2>
+                <p>High noon. Two gunslingers face off in the dusty street.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shootout 2 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="shootout2-img">
+                <video autoplay muted loop playsinline>
+                    <source src="shootout2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="shootout2-text">
+                <h2>DEAD EYE</h2>
+                <p>Dead Eye activates. Time slows. Every shot perfectly placed.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shootout 3 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="shootout3-img">
+                <video autoplay muted loop playsinline>
+                    <source src="shootout3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="shootout3-text">
+                <h2>SALOON FIGHT</h2>
+                <p>Bullets fly through the saloon. Glass shatters. Smoke fills the air.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Train Robbery 1 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="train1-img">
+                <video autoplay muted loop playsinline>
+                    <source src="train-robbery1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="train1-text">
+                <h2>THE PLAN</h2>
+                <p>The gang gets ready to hijack a train and start collecting money.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Train Robbery 2 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="train2-img">
+                <video autoplay muted loop playsinline>
+                    <source src="train-robbery2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="train2-text">
+                <h2>BOARDING</h2>
+                <p>Arthur fights through guards. Passengers scream. The safe car is close.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Train Robbery 3 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="train3-img">
+                <video autoplay muted loop playsinline>
+                    <source src="train-robbery3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="train3-text">
+                <h2>THE CHOICE</h2>
+                <p>Guards beg for mercy. Arthur decides their fate. Kill them. Send them away. Or let them run.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Horseback 1 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="horseback1-img">
+                <video autoplay muted loop playsinline>
+                    <source src="horseback1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="horseback1-text">
+                <h2>ESCAPE</h2>
+                <p>Arthur rides hard. Lawmen chase close behind. Thunder across the plains.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Horseback 2 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="horseback2-img">
+                <video autoplay muted loop playsinline>
+                    <source src="horseback2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="horseback2-text">
+                <h2>BONDING</h2>
+                <p>Bonding with his horse. Brushing. Feeding. Your horse is family.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Horseback 3 -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="horseback3-img">
+                <video autoplay muted loop playsinline>
+                    <source src="horseback3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="text-container" id="horseback3-text">
+                <h2>FREEDOM</h2>
+                <p>Riding through sunset. Horizon painted gold. This is freedom.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const sections = [
+            'camping1', 'camping2', 'camping3',
+            'shootout1', 'shootout2', 'shootout3',
+            'train1', 'train2', 'train3',
+            'horseback1', 'horseback2', 'horseback3'
+        ];
+
+        sections.forEach((section, index) => {
+            const imgElement = document.getElementById(`${section}-img`);
+            const textElement = document.getElementById(`${section}-text`);
+
+            // First section (camping1) appears instantly
+            if (index === 0) {
+                gsap.set(imgElement, { opacity: 1, scale: 1 });
+                gsap.set(textElement, { opacity: 1, x: 0 });
+                
+                // Fade out camping1 quickly when scrolling
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: imgElement.closest('.scroll-wrapper'),
+                        start: 'top top',
+                        end: '+=200%',
+                        scrub: 0.5,
+                        pin: true,
+                    }
+                });
+
+                // Text fades out
+                tl.to(textElement, {
+                    opacity: 0,
+                    x: -100,
+                    ease: "power2.in"
+                }, 0);
+
+                // Image fades out
+                tl.to(imgElement, {
+                    opacity: 0,
+                    scale: 0.8,
+                    ease: "power2.inOut"
+                }, 0.3);
+                
+                return;
+            }
+
+            // All other sections with very tight timing
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: imgElement.closest('.scroll-wrapper'),
+                    start: 'top top',
+                    end: '+=200%',
+                    scrub: 0.5,
+                    pin: true,
+                }
+            });
+
+            // Fade in image (starts immediately)
+            tl.fromTo(imgElement, 
+                { opacity: 0, scale: 0.8 },
+                { opacity: 1, scale: 1, ease: "power2.inOut" },
+                0
+            );
+
+            // Fade in text (right after image starts)
+            tl.fromTo(textElement,
+                { opacity: 0, x: -50 },
+                { opacity: 1, x: 0, ease: "power2.out" },
+                0.2
+            );
+
+            // Fade out text (very tight)
+            tl.to(textElement, {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.8);
+
+            // Fade out image (overlaps heavily with text for 0.5s gap)
+            tl.to(imgElement, {
+                opacity: 0,
+                scale: 0.8,
+                ease: "power2.inOut"
+            }, 0.95);
+        });
+    </script>
+</body>
+</html>

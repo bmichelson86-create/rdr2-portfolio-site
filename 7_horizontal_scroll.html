@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDR2 - Horizontal Scroll Gallery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chinese Rocks', 'Impact', sans-serif;
+            background: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 15px 50px;
+            z-index: 1000;
+            border-bottom: 2px solid #EA2424;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: #EA2424;
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #000000 0%, #1a0000 100%);
+        }
+
+        .intro-title {
+            font-size: 5rem;
+            background: linear-gradient(90deg, #EA2424 0%, #d4a574 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+
+        .intro-subtitle {
+            font-size: 1.5rem;
+            color: #d4a574;
+            letter-spacing: 4px;
+            opacity: 0;
+        }
+
+        /* Horizontal Scroll Container */
+        .horizontal-wrapper {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .horizontal-sections {
+            display: flex;
+            height: 100vh;
+        }
+
+        .horizontal-panel {
+            min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-content {
+            text-align: center;
+            z-index: 2;
+            padding: 50px;
+        }
+
+        .panel-image {
+            position: absolute;
+            width: 60%;
+            height: 70%;
+            object-fit: cover;
+            border: 3px solid #EA2424;
+            box-shadow: 0 0 50px rgba(234, 36, 36, 0.5);
+            filter: grayscale(30%);
+        }
+
+        .panel-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #EA2424 0%, #d4a574 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(234, 36, 36, 0.5);
+        }
+
+        .panel-description {
+            font-size: 1.3rem;
+            color: #d4a574;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #EA2424 0%, #d4a574 100%);
+            width: 0%;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px 25px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            nav ul li a {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+
+            .intro-title {
+                font-size: 3rem;
+            }
+
+            .intro-subtitle {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .panel-image {
+                width: 80%;
+                height: 50%;
+            }
+
+            .panel-content {
+                padding: 30px 20px;
+            }
+
+            .panel-title {
+                font-size: 2.5rem;
+            }
+
+            .panel-description {
+                font-size: 1.1rem;
+                max-width: 85%;
+                padding: 15px 20px;
+            }
+
+            .progress-bar {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 8px 15px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 8px;
+            }
+
+            nav ul li a {
+                font-size: 0.65rem;
+                padding: 4px 8px;
+            }
+
+            .intro-title {
+                font-size: 2.5rem;
+            }
+
+            .intro-subtitle {
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+
+            .panel-image {
+                width: 90%;
+                height: 40%;
+            }
+
+            .panel-title {
+                font-size: 2rem;
+            }
+
+            .panel-description {
+                font-size: 1rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">RDR2</div>
+        <ul>
+            <li><a href="1_index.html">HOME</a></li>
+            <li><a href="2_characters.html">CHARACTERS</a></li>
+            <li><a href="3_weaponscroll.html">WEAPONS</a></li>
+            <li><a href="4_story.html">STORY</a></li>
+            <li><a href="5_gallery.html">GALLERY</a></li>
+            <li><a href="6_about.html">ABOUT</a></li>
+            <li><a href="7_horizontal_scroll.html" class="active">LOCATIONS</a></li>
+        </ul>
+    </nav>
+
+    <!-- Intro Section -->
+    <div class="intro-section">
+        <h1 class="intro-title">LEGENDARY LOCATIONS</h1>
+        <p class="intro-subtitle">Scroll to explore the American frontier</p>
+    </div>
+
+    <!-- Horizontal Scroll Section -->
+    <div class="horizontal-wrapper">
+        <div class="horizontal-sections">
+            <!-- Panel 1 -->
+            <div class="horizontal-panel">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200" alt="Mountains"
+                    class="panel-image">
+                <div class="panel-content">
+                    <h2 class="panel-title">GRIZZLIES</h2>
+                    <p class="panel-description">
+                        Snow-capped mountains and frozen lakes. A harsh wilderness where only the toughest outlaws dare
+                        to venture.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Panel 2 -->
+            <div class="horizontal-panel">
+                <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1200" alt="Desert"
+                    class="panel-image">
+                <div class="panel-content">
+                    <h2 class="panel-title">NEW AUSTIN</h2>
+                    <p class="panel-description">
+                        Scorching deserts and dusty towns. The Old West at its most unforgiving, where lawmen and
+                        outlaws clash.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Panel 3 -->
+            <div class="horizontal-panel">
+                <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=1200" alt="Forest"
+                    class="panel-image">
+                <div class="panel-content">
+                    <h2 class="panel-title">BIG VALLEY</h2>
+                    <p class="panel-description">
+                        Dense forests and rolling hills. A paradise for hunters and homesteaders seeking a fresh start.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Panel 4 -->
+            <div class="horizontal-panel">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200" alt="Plains"
+                    class="panel-image">
+                <div class="panel-content">
+                    <h2 class="panel-title">HEARTLANDS</h2>
+                    <p class="panel-description">
+                        Vast plains and endless horizons. The heart of America, where buffalo roam and cowboys ride.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Panel 5 -->
+            <div class="horizontal-panel">
+                <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200" alt="Swamp"
+                    class="panel-image">
+                <div class="panel-content">
+                    <h2 class="panel-title">BAYOU NWA</h2>
+                    <p class="panel-description">
+                        Murky swamps and southern mystery. A dangerous land where gators lurk and secrets hide in the
+                        mist.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Intro animations
+        gsap.to('.intro-title', {
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            delay: 0.5
+        });
+
+        gsap.to('.intro-subtitle', {
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            delay: 1
+        });
+
+        // Horizontal scroll animation
+        const sections = gsap.utils.toArray('.horizontal-panel');
+        const totalWidth = sections.length * 100;
+
+        gsap.to('.horizontal-sections', {
+            x: () => -(document.querySelector('.horizontal-sections').scrollWidth - window.innerWidth),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.horizontal-wrapper',
+                pin: true,
+                scrub: 1,
+                end: () => `+=${document.querySelector('.horizontal-sections').scrollWidth}`,
+                onUpdate: (self) => {
+                    // Update progress bar
+                    gsap.to('.progress-fill', {
+                        width: `${self.progress * 100}%`,
+                        duration: 0.1
+                    });
+                }
+            }
+        });
+
+        // Image reveal animations for each panel
+        sections.forEach((panel, index) => {
+            const image = panel.querySelector('.panel-image');
+            const content = panel.querySelector('.panel-content');
+
+            gsap.from(image, {
+                scale: 1.3,
+                rotation: 10,
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: panel,
+                    containerAnimation: gsap.getProperty('.horizontal-sections', 'x') ? true : false,
+                    start: 'left center',
+                    end: 'right center',
+                    scrub: true
+                }
+            });
+
+            gsap.from(content, {
+                y: 100,
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: panel,
+                    containerAnimation: gsap.getProperty('.horizontal-sections', 'x') ? true : false,
+                    start: 'left center',
+                    end: 'center center',
+                    scrub: true
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

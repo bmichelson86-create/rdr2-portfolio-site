@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Dead Redemption 2 - Weapons</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Header Styles - Matching 2_characters.html */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .logo-text {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            font-size: 1.8rem;
+            color: #EA2424;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .nav-links a.active {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-container video.hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .video-container video.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .scroll-content {
+            position: relative;
+            z-index: 2;
+            height: 400vh;
+        }
+
+        /* Weapon Menu */
+        .weapon-menu {
+            position: fixed;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .weapon-box {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
+            border: 3px solid #8B4513;
+            border-radius: 15px;
+            padding: 25px 50px;
+            margin: 35px 0;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transform: translateX(-400px);
+            opacity: 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            width: 380px;
+        }
+
+        .weapon-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.3), transparent);
+            transition: right 0.6s;
+        }
+
+        .weapon-box:hover::before {
+            right: 100%;
+        }
+
+        .weapon-box:hover {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.3) 0%, rgba(160, 82, 45, 0.4) 100%);
+            border-color: #d4a574;
+            transform: translateX(15px) scale(1.08);
+            box-shadow: 0 0 50px rgba(212, 165, 116, 0.8), 0 0 20px rgba(139, 69, 19, 0.6);
+        }
+
+        .weapon-box h3 {
+            font-family: 'Chinese Rocks', 'Impact', 'Courier New', serif;
+            font-size: 2.5rem;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9),
+                0 0 20px rgba(212, 165, 116, 0.4);
+            transition: all 0.3s;
+        }
+
+        .weapon-box:hover h3 {
+            color: #f4d5a6;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9),
+                0 0 30px rgba(212, 165, 116, 0.8),
+                0 0 40px rgba(212, 165, 116, 0.6);
+        }
+
+        .weapon-box p {
+            font-family: 'Chinese Rocks', 'Courier New', monospace;
+            font-size: 1.3rem;
+            color: #c9b896;
+            margin-top: 10px;
+            opacity: 0.95;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .era-badge {
+            display: none;
+        }
+
+        /* Scroll Instructions - Upper Right Corner */
+        .scroll-instructions {
+            position: fixed;
+            top: 100px;
+            right: 50px;
+            z-index: 100;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.5s forwards;
+        }
+
+        .scroll-instructions p {
+            font-family: 'Chinese Rocks', 'Courier New', serif;
+            font-size: 1.4rem;
+            color: #d4a574;
+            letter-spacing: 3px;
+            margin: 0 0 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-transform: uppercase;
+        }
+
+        .scroll-instructions .instruction-icon {
+            display: block;
+            font-size: 2.5rem;
+            color: #d4a574;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 6px 10px;
+            }
+
+            /* Weapon menu stacks vertically on mobile */
+            .weapon-menu {
+                position: relative;
+                left: 0;
+                transform: none;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 180px 0 30px 0;
+                gap: 12px;
+                z-index: 100;
+            }
+
+            .weapon-box {
+                width: auto;
+                min-width: 200px;
+                max-width: 240px;
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                padding: 10px 16px;
+                margin: 0;
+            }
+
+            .weapon-box h3 {
+                font-size: 1.1rem;
+                margin-bottom: 4px;
+            }
+
+            .weapon-box p {
+                font-size: 0.7rem;
+            }
+
+            /* Touch-friendly active state for mobile */
+            .weapon-box:active {
+                background: linear-gradient(135deg, rgba(139, 69, 19, 0.4) 0%, rgba(160, 82, 45, 0.5) 100%);
+                border-color: #d4a574;
+                transform: scale(0.98) !important;
+            }
+
+            .scroll-instructions {
+                top: 80px;
+                right: 20px;
+            }
+
+            .scroll-instructions p {
+                font-size: 1rem;
+            }
+
+            .scroll-instructions .instruction-icon {
+                font-size: 2rem;
+            }
+
+            .scroll-content {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+
+            .weapon-box {
+                width: 90%;
+                max-width: 250px;
+                padding: 10px 18px;
+            }
+
+            .weapon-box h3 {
+                font-size: 1.1rem;
+                margin-bottom: 4px;
+            }
+
+            .weapon-box p {
+                font-size: 0.75rem;
+            }
+
+            .scroll-instructions {
+                top: 70px;
+                right: 15px;
+            }
+
+            .scroll-instructions p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-text">RDR2</div>
+        <nav class="nav-links">
+            <a href="1_index.html">HOME</a>
+            <a href="2_characters.html">CHARACTERS</a>
+            <a href="3_weaponscroll.html" class="active">WEAPONS</a>
+            <a href="4_story.html">STORY</a>
+            <a href="5_gallery.html">GALLERY</a>
+            <a href="6_about.html">ABOUT</a>
+            <a href="7_horizontal_scroll.html">LOCATIONS</a>
+        </nav>
+    </header>
+
+    <!-- Video Container -->
+    <div class="video-container">
+        <video id="pistols-video" class="active" autoplay muted loop playsinline>
+            <source src="pistols-video.mp4" type="video/mp4">
+        </video>
+        <video id="revolvers-video" class="hidden" muted loop playsinline>
+            <source src="revolvers-video.mp4" type="video/mp4">
+        </video>
+        <video id="shotguns-video" class="hidden" muted loop playsinline>
+            <source src="shotguns-video.mp4" type="video/mp4">
+        </video>
+        <video id="rifles-video" class="hidden" muted loop playsinline>
+            <source src="rifles-video.mp4" type="video/mp4">
+        </video>
+        <video id="longarms-video" class="hidden" muted loop playsinline>
+            <source src="longarms-video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="scroll-content"></div>
+
+    <!-- Weapon Menu -->
+    <div class="weapon-menu">
+        <div class="weapon-box" data-category="pistols">
+            <span class="era-badge">1899</span>
+            <h3>Pistols</h3>
+            <p>Semi-Automatic Sidearms</p>
+        </div>
+
+        <div class="weapon-box" data-category="revolvers">
+            <span class="era-badge">1899</span>
+            <h3>Revolvers</h3>
+            <p>Six-Shooter Classics</p>
+        </div>
+
+        <div class="weapon-box" data-category="shotguns">
+            <span class="era-badge">1899</span>
+            <h3>Shotguns</h3>
+            <p>Close-Range Power</p>
+        </div>
+
+        <div class="weapon-box" data-category="rifles">
+            <span class="era-badge">1899</span>
+            <h3>Rifles</h3>
+            <p>Precision Firearms</p>
+        </div>
+
+        <div class="weapon-box" data-category="longarms">
+            <span class="era-badge">1899</span>
+            <h3>Longarms</h3>
+            <p>Heavy Artillery</p>
+        </div>
+    </div>
+
+    <!-- Scroll Instructions -->
+    <div class="scroll-instructions">
+        <p>Scroll Down</p>
+        <span class="instruction-icon">↓</span>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hide scroll instructions after scrolling or hovering weapon
+        const scrollInstructions = document.querySelector('.scroll-instructions');
+        let instructionsHidden = false;
+
+        function hideInstructions() {
+            if (!instructionsHidden) {
+                gsap.to(scrollInstructions, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.5,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        scrollInstructions.style.display = 'none';
+                    }
+                });
+                instructionsHidden = true;
+            }
+        }
+
+        // Hide on scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                hideInstructions();
+            }
+        });
+
+        // Weapon boxes drop in from LEFT as you scroll (DESKTOP ONLY)
+        const boxes = document.querySelectorAll('.weapon-box');
+
+        // Only run scroll animations on desktop
+        if (window.innerWidth > 768) {
+            boxes.forEach((box, index) => {
+                gsap.to(box, {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: '.scroll-content',
+                        start: `${10 + (index * 10)}% top`,
+                        end: `${15 + (index * 10)}% top`,
+                        scrub: 0.5,
+                    }
+                });
+            });
+        } else {
+            // On mobile, make boxes visible immediately (no animation)
+            boxes.forEach(box => {
+                box.style.transform = 'translateX(0)';
+                box.style.opacity = '1';
+            });
+        }
+
+        // Video switching on hover
+        const videos = {
+            'pistols': document.getElementById('pistols-video'),
+            'revolvers': document.getElementById('revolvers-video'),
+            'shotguns': document.getElementById('shotguns-video'),
+            'rifles': document.getElementById('rifles-video'),
+            'longarms': document.getElementById('longarms-video')
+        };
+
+        let currentVideo = 'pistols';
+
+        function switchVideo(category) {
+            if (category === currentVideo || !videos[category]) return;
+
+            // Hide current video
+            videos[currentVideo].classList.remove('active');
+            videos[currentVideo].classList.add('hidden');
+            videos[currentVideo].pause();
+
+            // Show new video
+            videos[category].classList.remove('hidden');
+            videos[category].classList.add('active');
+            videos[category].play();
+
+            currentVideo = category;
+        }
+
+        // Add hover listeners to weapon boxes
+        document.querySelectorAll('.weapon-box').forEach(box => {
+            const category = box.getAttribute('data-category');
+
+            box.addEventListener('mouseenter', () => {
+                switchVideo(category);
+                hideInstructions(); // Hide instructions on first hover
+            });
+
+            box.addEventListener('click', () => {
+                console.log(`Selected category: ${category}`);
+                alert(`Viewing ${category.toUpperCase()} from 1899`);
+            });
+        });
+    </script>
+</body>
+
+</html>

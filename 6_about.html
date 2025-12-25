@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Dead Redemption 2 - About</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chinese Rocks', 'Impact', sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles - Matching 2_characters.html */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .logo-text {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            font-size: 1.8rem;
+            color: #EA2424;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .nav-links a.active {
+            color: #EA2424;
+            border-bottom: 2px solid #EA2424;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 120px auto 60px;
+            padding: 0 40px;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-header h1 {
+            font-size: 5rem;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .about-header p {
+            font-size: 1.5rem;
+            color: #d4a574;
+            letter-spacing: 2px;
+        }
+
+        .about-section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .about-section h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #EA2424;
+            letter-spacing: 4px;
+            border-bottom: 3px solid #d4a574;
+            padding-bottom: 15px;
+        }
+
+        .about-section p {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .about-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .about-section ul li {
+            font-size: 1.8rem;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+        }
+
+        .about-section ul li:before {
+            content: "▸ ";
+            color: #EA2424;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #d4a574;
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: #EA2424;
+            box-shadow: 0 10px 30px rgba(234, 36, 36, 0.4);
+        }
+
+        .stat-card h3 {
+            font-size: 3rem;
+            color: #EA2424;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 1.2rem;
+            color: #d4a574;
+        }
+
+        .team-section {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .team-section h3 {
+            font-size: 2.5rem;
+            color: #EA2424;
+            margin-bottom: 20px;
+        }
+
+        .team-section p {
+            font-size: 1.8rem;
+            color: #d4a574;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 25px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+
+            .about-container {
+                margin: 140px auto 40px;
+                padding: 0 20px;
+            }
+
+            .about-header h1 {
+                font-size: 3rem;
+                letter-spacing: 5px;
+            }
+
+            .about-header p {
+                font-size: 1.2rem;
+            }
+
+            .about-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .about-section p,
+            .about-section ul li {
+                font-size: 1.4rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stat-card h3 {
+                font-size: 2.5rem;
+            }
+
+            .team-section h3 {
+                font-size: 2rem;
+            }
+
+            .team-section p {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 8px 15px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .nav-links a {
+                font-size: 0.65rem;
+                padding: 4px 8px;
+            }
+
+            .about-header h1 {
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+
+            .about-header p {
+                font-size: 1rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-section p,
+            .about-section ul li {
+                font-size: 1.2rem;
+            }
+
+            .stat-card {
+                padding: 25px 20px;
+            }
+
+            .stat-card h3 {
+                font-size: 2rem;
+            }
+
+            .team-section h3 {
+                font-size: 1.6rem;
+            }
+
+            .team-section p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-text">RDR2</div>
+        <nav class="nav-links">
+            <a href="1_index.html">HOME</a>
+            <a href="2_characters.html">CHARACTERS</a>
+            <a href="3_weaponscroll.html">WEAPONS</a>
+            <a href="4_story.html">STORY</a>
+            <a href="5_gallery.html">GALLERY</a>
+            <a href="6_about.html" class="active">ABOUT</a>
+            <a href="7_horizontal_scroll.html">LOCATIONS</a>
+        </nav>
+    </header>
+
+    <div class="about-container">
+        <div class="about-header">
+            <h1>ABOUT</h1>
+            <p>The Making of a Masterpiece</p>
+        </div>
+
+        <div class="about-section">
+            <h2>The Game</h2>
+            <p>
+                Red Dead Redemption 2 is a 2018 action-adventure game developed and published by Rockstar Games. The
+                game is the third entry in the Red Dead series and a prequel to the 2010 game Red Dead Redemption. Set
+                in 1899 in a fictionalized representation of the Western, Midwestern, and Southern United States, the
+                story follows outlaw Arthur Morgan, a member of the Van der Linde gang.
+            </p>
+            <p>
+                The game is presented through first and third-person perspectives, and the player may freely roam its
+                interactive open world. Gameplay elements include shootouts, heists, hunting, horseback riding,
+                interacting with non-player characters, and maintaining the character's honor rating through moral
+                choices and deeds.
+            </p>
+        </div>
+
+        <div class="about-section">
+            <h2>Development</h2>
+            <p>
+                Red Dead Redemption 2 was developed by Rockstar Studios, a collaborative team of developers spread
+                across several Rockstar Games studios worldwide. The game's development lasted over eight years,
+                beginning soon after Red Dead Redemption's release, and became one of the most expensive video games
+                ever made.
+            </p>
+            <ul>
+                <li>8+ years in development</li>
+                <li>Over 2,000 developers involved</li>
+                <li>300,000+ animations created</li>
+                <li>500,000+ lines of dialogue recorded</li>
+                <li>1,200 actors and crew members</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>Awards & Recognition</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>175+</h3>
+                    <p>Game of the Year Awards</p>
+                </div>
+                <div class="stat-card">
+                    <h3>97/100</h3>
+                    <p>Metacritic Score</p>
+                </div>
+                <div class="stat-card">
+                    <h3>$725M</h3>
+                    <p>Opening Weekend Sales</p>
+                </div>
+                <div class="stat-card">
+                    <h3>50M+</h3>
+                    <p>Copies Sold Worldwide</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Critical Acclaim</h2>
+            <p>
+                Red Dead Redemption 2 received widespread critical acclaim, with praise directed at its story,
+                characters, open world, graphics, music, and level of detail. It won numerous year-end accolades
+                including Game of the Year awards from several gaming publications and is considered one of the greatest
+                video games ever made.
+            </p>
+        </div>
+
+        <div class="team-section">
+            <h3>Developed by Rockstar Games</h3>
+            <p>Published by Rockstar Games | Released October 26, 2018</p>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate about sections on scroll
+        gsap.utils.toArray('.about-section').forEach(section => {
+            gsap.to(section, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

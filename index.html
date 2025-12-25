@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDR2 Logo Mask Reveal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+            cursor: none;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Base layer - dark/hidden state */
+        .base-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        .base-layer h1 {
+            display: none;
+        }
+
+        /* Reveal layer - bright/visible state */
+        .reveal-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Hero-image.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            clip-path: circle(0px at 50% 50%);
+        }
+
+        .logo-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.02);
+        }
+
+        .reveal-layer img {
+            display: none; /* Hide the img tag, use background instead */
+        }
+
+        /* Video overlay (hidden initially) */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-overlay video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(0);
+        }
+
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border: 2px solid rgba(234, 36, 36, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .cursor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #EA2424;
+            border-radius: 50%;
+        }
+
+        .cursor.click-cursor {
+            border-color: rgba(234, 36, 36, 1);
+        }
+
+        .cursor.click-cursor::after {
+            content: 'CLICK';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #EA2424;
+            font-family: 'Impact', sans-serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        /* Instructions */
+        .instructions {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #EA2424;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-align: center;
+            z-index: 10;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Base layer (dark/hidden) -->
+        <div class="base-layer"></div>
+
+        <!-- Reveal layer (bright/visible) -->
+        <div class="reveal-layer">
+            <div class="logo-container" id="logo">
+                <img src="Hero-image.png" alt="Red Dead Redemption 2">
+            </div>
+        </div>
+    </div>
+
+    <!-- Video overlay (for zoom transition) -->
+    <div class="video-overlay" id="videoOverlay">
+        <video id="mainVideo" muted>
+            <source src="home-video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Custom cursor -->
+    <div class="cursor"></div>
+
+    <!-- Instructions -->
+    <div class="instructions">Move your mouse to reveal • Click to enter</div>
+
+    <script>
+        const revealLayer = document.querySelector('.reveal-layer');
+        const cursor = document.querySelector('.cursor');
+        const instructions = document.querySelector('.instructions');
+        const logo = document.getElementById('logo');
+        const videoOverlay = document.getElementById('videoOverlay');
+        const mainVideo = document.getElementById('mainVideo');
+        
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let currentX = mouseX;
+        let currentY = mouseY;
+        let isOverLogo = false;
+
+        // Spotlight size
+        const spotlightRadius = 250;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Hide instructions on first mouse move
+            if (instructions) {
+                gsap.to(instructions, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => instructions.remove()
+                });
+            }
+
+            // Check if mouse is over logo
+            const logoRect = logo.getBoundingClientRect();
+            const spotlightLeft = currentX - spotlightRadius;
+            const spotlightRight = currentX + spotlightRadius;
+            const spotlightTop = currentY - spotlightRadius;
+            const spotlightBottom = currentY + spotlightRadius;
+
+            isOverLogo = (
+                spotlightLeft < logoRect.right &&
+                spotlightRight > logoRect.left &&
+                spotlightTop < logoRect.bottom &&
+                spotlightBottom > logoRect.top
+            );
+
+            // Update cursor style
+            if (isOverLogo) {
+                cursor.classList.add('click-cursor');
+            } else {
+                cursor.classList.remove('click-cursor');
+            }
+        });
+
+        // Click on logo to zoom into video
+        logo.addEventListener('click', () => {
+            if (isOverLogo) {
+                zoomToVideo();
+            }
+        });
+
+        // Also allow clicking anywhere when logo is revealed
+        document.addEventListener('click', (e) => {
+            if (isOverLogo && e.target !== logo && e.target.tagName !== 'IMG') {
+                zoomToVideo();
+            }
+        });
+
+        function zoomToVideo() {
+            // Get logo position
+            const logoRect = logo.getBoundingClientRect();
+            const logoCenterX = logoRect.left + logoRect.width / 2;
+            const logoCenterY = logoRect.top + logoRect.height / 2;
+
+            // Show video overlay
+            videoOverlay.style.pointerEvents = 'auto';
+            mainVideo.play();
+
+            // Animate zoom effect
+            const timeline = gsap.timeline({
+                onComplete: () => {
+                    // After animation, redirect to index page
+                    window.location.href = '1_index.html';
+                }
+            });
+
+            // Fade in overlay
+            timeline.to(videoOverlay, {
+                opacity: 1,
+                duration: 0.3,
+                ease: 'power2.in'
+            });
+
+            // Zoom in video from logo position
+            timeline.fromTo(mainVideo, 
+                {
+                    scale: 0,
+                    x: logoCenterX - window.innerWidth / 2,
+                    y: logoCenterY - window.innerHeight / 2
+                },
+                {
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    duration: 1.2,
+                    ease: 'power3.inOut'
+                },
+                '-=0.2'
+            );
+
+            // Hide cursor
+            gsap.to(cursor, {
+                opacity: 0,
+                duration: 0.3
+            });
+        }
+
+        // Smooth animation loop
+        function animate() {
+            // Smooth follow with easing
+            currentX += (mouseX - currentX) * 0.15;
+            currentY += (mouseY - currentY) * 0.15;
+
+            // Update reveal layer clip-path
+            revealLayer.style.clipPath = `circle(${spotlightRadius}px at ${currentX}px ${currentY}px)`;
+
+            // Update cursor position
+            cursor.style.left = currentX + 'px';
+            cursor.style.top = currentY + 'px';
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Cursor hover effect - expand on click
+        document.addEventListener('mousedown', () => {
+            gsap.to(cursor, {
+                width: 350,
+                height: 350,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        document.addEventListener('mouseup', () => {
+            gsap.to(cursor, {
+                width: 300,
+                height: 300,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+    </script>
+</body>
+</html>
