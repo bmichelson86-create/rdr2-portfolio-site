@@ -501,16 +501,20 @@
         });
 
         function switchVideo(category) {
-            if (category === currentVideo || !videos[category]) return;
+            if (!videos[category]) return;
 
-            // Hide current video
-            videos[currentVideo].classList.remove('active');
-            videos[currentVideo].classList.add('hidden');
-            videos[currentVideo].pause();
+            // Always hide all videos first
+            Object.keys(videos).forEach(key => {
+                videos[key].classList.remove('active');
+                videos[key].classList.add('hidden');
+                videos[key].pause();
+            });
 
-            // Show new video
+            // Show and play the selected video
             videos[category].classList.remove('hidden');
             videos[category].classList.add('active');
+
+            // Force play - critical for iOS Safari
             videos[category].play().catch(error => {
                 console.log('Video play failed:', error);
             });
