@@ -534,8 +534,17 @@
             });
 
             box.addEventListener('click', () => {
+                // Switch and play the video
+                switchVideo(category);
+
+                // Ensure video plays on mobile when clicked
+                if (videos[category]) {
+                    videos[category].play().catch(error => {
+                        console.log('Click play failed:', error);
+                    });
+                }
+
                 console.log(`Selected category: ${category}`);
-                alert(`Viewing ${category.toUpperCase()} from 1899`);
             });
         });
     </script>
