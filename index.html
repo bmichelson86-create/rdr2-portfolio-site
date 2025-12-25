@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +68,8 @@
         }
 
         .reveal-layer img {
-            display: none; /* Hide the img tag, use background instead */
+            display: none;
+            /* Hide the img tag, use background instead */
         }
 
         /* Video overlay (hidden initially) */
@@ -152,11 +154,19 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.4; }
+
+            0%,
+            100% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Base layer (dark/hidden) -->
@@ -173,7 +183,7 @@
     <!-- Video overlay (for zoom transition) -->
     <div class="video-overlay" id="videoOverlay">
         <video id="mainVideo" muted>
-            <source src="home-video.mp4" type="video/mp4">
+            <source src="Hero-video.mp4" type="video/mp4">
         </video>
     </div>
 
@@ -190,7 +200,7 @@
         const logo = document.getElementById('logo');
         const videoOverlay = document.getElementById('videoOverlay');
         const mainVideo = document.getElementById('mainVideo');
-        
+
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
         let currentX = mouseX;
@@ -276,7 +286,7 @@
             });
 
             // Zoom in video from logo position
-            timeline.fromTo(mainVideo, 
+            timeline.fromTo(mainVideo,
                 {
                     scale: 0,
                     x: logoCenterX - window.innerWidth / 2,
@@ -340,4 +350,5 @@
         document.body.style.cursor = 'none';
     </script>
 </body>
+
 </html>
