@@ -221,11 +221,39 @@
                 top: 42%;
             }
 
-            .text-container {
-                left: 5%;
-                right: 5%;
-                max-width: 90%;
+            /* Disable GSAP scroll animations - make normal vertical scroll */
+            .scroll-wrapper {
+                height: auto !important;
+                min-height: auto !important;
+            }
+
+            .pin-section {
+                position: relative !important;
+                height: auto !important;
+                min-height: 60vh !important;
+                display: block !important;
+            }
+
+            .image-layer {
+                position: relative !important;
+                height: 60vh !important;
                 opacity: 1 !important;
+            }
+
+            .image-layer img {
+                opacity: 1 !important;
+            }
+
+            .text-container {
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                transform: none !important;
+                max-width: 100% !important;
+                opacity: 1 !important;
+                padding: 20px;
+                margin: 0 0 30px 0;
             }
 
             .text-container h2 {
@@ -649,22 +677,53 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        const characters = [
-            'arthur', 'dutch', 'sadie', 'charles', 'john', 'javier', 'lenny', 'sean',
-            'micah', 'bill', 'hosea', 'abigail', 'jack', 'marybeth', 'karen', 'uncle',
-            'reverend', 'trelawny', 'tilly', 'susan', 'pearson', 'kieran', 'strauss'
-        ];
+        // Detect mobile devices
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-        characters.forEach((character, index) => {
-            const imgElement = document.getElementById(`${character}-img`);
-            const textElement = document.getElementById(`${character}-text`);
+        // Only run GSAP animations on desktop
+        if (!isMobile) {
+            const characters = [
+                'arthur', 'dutch', 'sadie', 'charles', 'john', 'javier', 'lenny', 'sean',
+                'micah', 'bill', 'hosea', 'abigail', 'jack', 'marybeth', 'karen', 'uncle',
+                'reverend', 'trelawny', 'tilly', 'susan', 'pearson', 'kieran', 'strauss'
+            ];
 
-            // First character (Arthur) appears instantly
-            if (index === 0) {
-                gsap.set(imgElement, { opacity: 1, scale: 1 });
-                gsap.set(textElement, { opacity: 1, x: 0 });
+            characters.forEach((character, index) => {
+                const imgElement = document.getElementById(`${character}-img`);
+                const textElement = document.getElementById(`${character}-text`);
 
-                // Fade out Arthur when scrolling
+                // First character (Arthur) appears instantly
+                if (index === 0) {
+                    gsap.set(imgElement, { opacity: 1, scale: 1 });
+                    gsap.set(textElement, { opacity: 1, x: 0 });
+
+                    // Fade out Arthur when scrolling
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: imgElement.closest('.scroll-wrapper'),
+                            start: 'top top',
+                            end: '+=200%',
+                            scrub: 0.5,
+                            pin: true,
+                        }
+                    });
+
+                    tl.to(textElement, {
+                        opacity: 0,
+                        x: -100,
+                        ease: "power2.in"
+                    }, 0);
+
+                    tl.to(imgElement, {
+                        opacity: 0,
+                        scale: 0.8,
+                        ease: "power2.inOut"
+                    }, 0.3);
+
+                    return;
+                }
+
+                // All other characters with fade-in/fade-out
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: imgElement.closest('.scroll-wrapper'),
@@ -675,60 +734,35 @@
                     }
                 });
 
+                // Fade in image
+                tl.fromTo(imgElement,
+                    { opacity: 0, scale: 0.8 },
+                    { opacity: 1, scale: 1, ease: "power2.inOut" },
+                    0
+                );
+
+                // Fade in text
+                tl.fromTo(textElement,
+                    { opacity: 0, x: -50 },
+                    { opacity: 1, x: 0, ease: "power2.out" },
+                    0.2
+                );
+
+                // Fade out text
                 tl.to(textElement, {
                     opacity: 0,
                     x: -100,
                     ease: "power2.in"
-                }, 0);
+                }, 0.8);
 
+                // Fade out image
                 tl.to(imgElement, {
                     opacity: 0,
                     scale: 0.8,
                     ease: "power2.inOut"
-                }, 0.3);
-
-                return;
-            }
-
-            // All other characters with fade-in/fade-out
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: imgElement.closest('.scroll-wrapper'),
-                    start: 'top top',
-                    end: '+=200%',
-                    scrub: 0.5,
-                    pin: true,
-                }
+                }, 0.95);
             });
-
-            // Fade in image
-            tl.fromTo(imgElement,
-                { opacity: 0, scale: 0.8 },
-                { opacity: 1, scale: 1, ease: "power2.inOut" },
-                0
-            );
-
-            // Fade in text
-            tl.fromTo(textElement,
-                { opacity: 0, x: -50 },
-                { opacity: 1, x: 0, ease: "power2.out" },
-                0.2
-            );
-
-            // Fade out text
-            tl.to(textElement, {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.8);
-
-            // Fade out image
-            tl.to(imgElement, {
-                opacity: 0,
-                scale: 0.8,
-                ease: "power2.inOut"
-            }, 0.95);
-        });
+        }
     </script>
 </body>
 
