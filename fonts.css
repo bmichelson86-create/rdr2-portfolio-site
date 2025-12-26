@@ -1,2 +1,9 @@
 /* Chinese Rocks Font */
 @import url('https://fonts.cdnfonts.com/css/chinese-rocks');
+
+/* Mobile-specific font override - Use Impact for consistency */
+@media (max-width: 768px) {
+    * {
+        font-family: Impact, 'Arial Black', sans-serif !important;
+    }
+}
