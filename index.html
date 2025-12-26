@@ -18,7 +18,13 @@
             height: 100vh;
             overflow: hidden;
             background: #000;
-            cursor: none;
+        }
+
+        /* Show cursor only on desktop */
+        @media (hover: hover) and (pointer: fine) {
+            body {
+                cursor: none;
+            }
         }
 
         .container {
@@ -95,7 +101,7 @@
             transform: scale(0);
         }
 
-        /* Custom cursor */
+        /* Custom cursor - hide on mobile */
         .cursor {
             position: fixed;
             width: 300px;
@@ -107,6 +113,12 @@
             z-index: 9999;
             mix-blend-mode: difference;
             transition: width 0.3s, height 0.3s;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .cursor {
+                display: none;
+            }
         }
 
         .cursor::before {
@@ -210,12 +222,20 @@
         // Spotlight size
         const spotlightRadius = 250;
 
-        // Track mouse position
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        // Detect if mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-            // Hide instructions on first mouse move
+        // Update instructions based on device
+        if (isMobile) {
+            instructions.textContent = 'Touch to reveal • Tap to enter';
+        }
+
+        // Handle position update (works for both mouse and touch)
+        function updatePosition(x, y) {
+            mouseX = x;
+            mouseY = y;
+
+            // Hide instructions on first interaction
             if (instructions) {
                 gsap.to(instructions, {
                     opacity: 0,
@@ -224,7 +244,7 @@
                 });
             }
 
-            // Check if mouse is over logo
+            // Check if position is over logo
             const logoRect = logo.getBoundingClientRect();
             const spotlightLeft = currentX - spotlightRadius;
             const spotlightRight = currentX + spotlightRadius;
@@ -238,24 +258,58 @@
                 spotlightBottom > logoRect.top
             );
 
-            // Update cursor style
-            if (isOverLogo) {
-                cursor.classList.add('click-cursor');
-            } else {
-                cursor.classList.remove('click-cursor');
+            // Update cursor style (desktop only)
+            if (!isMobile) {
+                if (isOverLogo) {
+                    cursor.classList.add('click-cursor');
+                } else {
+                    cursor.classList.remove('click-cursor');
+                }
             }
+        }
+
+        // Track mouse position (desktop)
+        document.addEventListener('mousemove', (e) => {
+            updatePosition(e.clientX, e.clientY);
         });
 
-        // Click on logo to zoom into video
+        // Track touch position (mobile)
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            updatePosition(touch.clientX, touch.clientY);
+        }, { passive: false });
+
+        // Handle touch start to set initial position
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            updatePosition(touch.clientX, touch.clientY);
+        });
+
+        // Click/tap on logo to zoom into video
         logo.addEventListener('click', () => {
             if (isOverLogo) {
                 zoomToVideo();
             }
         });
 
-        // Also allow clicking anywhere when logo is revealed
+        logo.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (isOverLogo) {
+                zoomToVideo();
+            }
+        });
+
+        // Also allow clicking/tapping anywhere when logo is revealed
         document.addEventListener('click', (e) => {
             if (isOverLogo && e.target !== logo && e.target.tagName !== 'IMG') {
+                zoomToVideo();
+            }
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (isOverLogo && e.target !== logo && e.target.tagName !== 'IMG') {
+                e.preventDefault();
                 zoomToVideo();
             }
         });
