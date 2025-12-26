@@ -524,6 +524,71 @@
             .character-text-23 p {
                 font-size: 3vw;
             }
+
+            /* Disable GSAP scroll animations on mobile - simple vertical stack */
+            .scroll-wrapper,
+            .scroll-wrapper-2,
+            .scroll-wrapper-3,
+            .scroll-wrapper-4,
+            .scroll-wrapper-5,
+            .scroll-wrapper-6,
+            .scroll-wrapper-7,
+            .scroll-wrapper-8,
+            .scroll-wrapper-9 {
+                height: auto !important;
+                /* Remove tall scroll height */
+                min-height: 100vh;
+                /* Each section takes at least full screen */
+            }
+
+            .pin-section {
+                position: relative !important;
+                /* Disable sticky positioning */
+                height: auto !important;
+                min-height: 100vh;
+            }
+
+            /* Make all character text visible on mobile */
+            .character-text,
+            .character-text-2,
+            .character-text-3,
+            .character-text-4,
+            .character-text-5,
+            .character-text-6,
+            .character-text-7,
+            .character-text-8,
+            .character-text-9,
+            .character-text-10,
+            .character-text-11,
+            .character-text-12,
+            .character-text-13,
+            .character-text-14,
+            .character-text-15,
+            .character-text-16,
+            .character-text-17,
+            .character-text-18,
+            .character-text-19,
+            .character-text-20,
+            .character-text-21,
+            .character-text-22,
+            .character-text-23 {
+                opacity: 1 !important;
+                /* Force all text to be visible */
+                position: relative !important;
+                /* Remove absolute positioning */
+                transform: none !important;
+                left: auto !important;
+                top: auto !important;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            /* Stack images and text vertically */
+            .image-layer {
+                position: relative !important;
+                height: 60vh;
+                margin-bottom: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -905,521 +970,527 @@
     </div>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Section 1 Animation - Arthur to Dutch
-        let tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".pin-section",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl.to(".character-text-2", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0);
-
-        tl.to("#middle-image", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl.fromTo(".character-text", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.0);
-
-        tl.to(".character-text", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 2 Animation - Sadie, Charles, John
-        let tl2 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-2",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl2.fromTo(".character-text-5", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl2.to("#foreground-image-2", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl2.to(".character-text-5", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl2.fromTo(".character-text-4", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl2.to("#middle-image-2", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl2.to(".character-text-4", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl2.fromTo(".character-text-3", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl2.to(".character-text-3", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 3 Animation - Javier, Lenny, Sean
-        let tl3 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-3",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl3.fromTo(".character-text-8", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl3.to("#foreground-image-3", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl3.to(".character-text-8", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl3.fromTo(".character-text-7", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl3.to("#middle-image-3", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl3.to(".character-text-7", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl3.fromTo(".character-text-6", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl3.to(".character-text-6", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 4 Animation - Micah, Bill, Hosea
-        let tl4 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-4",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl4.fromTo(".character-text-11", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl4.to("#foreground-image-4", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl4.to(".character-text-11", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl4.fromTo(".character-text-10", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl4.to("#middle-image-4", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl4.to(".character-text-10", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl4.fromTo(".character-text-9", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl4.to(".character-text-9", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 5 Animation - Abigail, Jack, Mary-Beth
-        let tl5 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-5",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl5.fromTo(".character-text-14", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl5.to("#foreground-image-5", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl5.to(".character-text-14", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl5.fromTo(".character-text-13", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl5.to("#middle-image-5", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl5.to(".character-text-13", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl5.fromTo(".character-text-12", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl5.to(".character-text-12", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 6 Animation - Karen, Uncle, Reverend
-        let tl6 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-6",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl6.fromTo(".character-text-17", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl6.to("#foreground-image-6", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl6.to(".character-text-17", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl6.fromTo(".character-text-16", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl6.to("#middle-image-6", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl6.to(".character-text-16", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl6.fromTo(".character-text-15", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl6.to(".character-text-15", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 7 Animation - Trelawny, Tilly, Grimshaw
-        let tl7 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-7",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl7.fromTo(".character-text-20", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl7.to("#foreground-image-7", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl7.to(".character-text-20", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl7.fromTo(".character-text-19", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl7.to("#middle-image-7", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl7.to(".character-text-19", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl7.fromTo(".character-text-18", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl7.to(".character-text-18", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
-
-        // Section 8 Animation - Pearson, Kieran, Strauss
-        let tl8 = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#section-8",
-                scrub: 0.5,
-                pin: true,
-                start: "top top",
-                end: "+=600%"
-            }
-        });
-
-        tl8.fromTo(".character-text-23", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0);
-
-        tl8.to("#foreground-image-8", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 0.5);
-
-        tl8.to(".character-text-23", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 0.5);
-
-        tl8.fromTo(".character-text-22", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 0.6);
-
-        tl8.to("#middle-image-8", {
-            scale: 0.8,
-            opacity: 0,
-            ease: "power2.inOut"
-        }, 1.0);
-
-        tl8.to(".character-text-22", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.0);
-
-        tl8.fromTo(".character-text-21", {
-            opacity: 0,
-            x: -50
-        }, {
-            opacity: 1,
-            x: 0,
-            ease: "power2.out"
-        }, 1.1);
-
-        tl8.to(".character-text-21", {
-            opacity: 0,
-            x: -100,
-            ease: "power2.in"
-        }, 1.8);
+        // Detect mobile devices - skip GSAP animations on mobile
+        const isMobile = window.innerWidth <= 768;
+
+        if (!isMobile) {
+            // Desktop only: Initialize GSAP ScrollTrigger animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Section 1 Animation - Arthur to Dutch
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".pin-section",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl.to(".character-text-2", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0);
+
+            tl.to("#middle-image", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl.fromTo(".character-text", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.0);
+
+            tl.to(".character-text", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 2 Animation - Sadie, Charles, John
+            let tl2 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-2",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl2.fromTo(".character-text-5", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl2.to("#foreground-image-2", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl2.to(".character-text-5", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl2.fromTo(".character-text-4", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl2.to("#middle-image-2", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl2.to(".character-text-4", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl2.fromTo(".character-text-3", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl2.to(".character-text-3", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 3 Animation - Javier, Lenny, Sean
+            let tl3 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-3",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl3.fromTo(".character-text-8", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl3.to("#foreground-image-3", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl3.to(".character-text-8", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl3.fromTo(".character-text-7", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl3.to("#middle-image-3", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl3.to(".character-text-7", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl3.fromTo(".character-text-6", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl3.to(".character-text-6", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 4 Animation - Micah, Bill, Hosea
+            let tl4 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-4",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl4.fromTo(".character-text-11", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl4.to("#foreground-image-4", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl4.to(".character-text-11", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl4.fromTo(".character-text-10", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl4.to("#middle-image-4", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl4.to(".character-text-10", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl4.fromTo(".character-text-9", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl4.to(".character-text-9", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 5 Animation - Abigail, Jack, Mary-Beth
+            let tl5 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-5",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl5.fromTo(".character-text-14", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl5.to("#foreground-image-5", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl5.to(".character-text-14", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl5.fromTo(".character-text-13", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl5.to("#middle-image-5", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl5.to(".character-text-13", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl5.fromTo(".character-text-12", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl5.to(".character-text-12", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 6 Animation - Karen, Uncle, Reverend
+            let tl6 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-6",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl6.fromTo(".character-text-17", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl6.to("#foreground-image-6", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl6.to(".character-text-17", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl6.fromTo(".character-text-16", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl6.to("#middle-image-6", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl6.to(".character-text-16", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl6.fromTo(".character-text-15", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl6.to(".character-text-15", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 7 Animation - Trelawny, Tilly, Grimshaw
+            let tl7 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-7",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl7.fromTo(".character-text-20", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl7.to("#foreground-image-7", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl7.to(".character-text-20", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl7.fromTo(".character-text-19", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl7.to("#middle-image-7", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl7.to(".character-text-19", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl7.fromTo(".character-text-18", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl7.to(".character-text-18", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+
+            // Section 8 Animation - Pearson, Kieran, Strauss
+            let tl8 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#section-8",
+                    scrub: 0.5,
+                    pin: true,
+                    start: "top top",
+                    end: "+=600%"
+                }
+            });
+
+            tl8.fromTo(".character-text-23", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0);
+
+            tl8.to("#foreground-image-8", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 0.5);
+
+            tl8.to(".character-text-23", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 0.5);
+
+            tl8.fromTo(".character-text-22", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 0.6);
+
+            tl8.to("#middle-image-8", {
+                scale: 0.8,
+                opacity: 0,
+                ease: "power2.inOut"
+            }, 1.0);
+
+            tl8.to(".character-text-22", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.0);
+
+            tl8.fromTo(".character-text-21", {
+                opacity: 0,
+                x: -50
+            }, {
+                opacity: 1,
+                x: 0,
+                ease: "power2.out"
+            }, 1.1);
+
+            tl8.to(".character-text-21", {
+                opacity: 0,
+                x: -100,
+                ease: "power2.in"
+            }, 1.8);
+        } // End of desktop-only GSAP animations
     </script>
 </body>
 
