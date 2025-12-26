@@ -1,9 +1,2 @@
-/* Chinese Rocks Font - Local Fallback */
-@font-face {
-    font-family: 'Chinese Rocks';
-    src: url('https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2') format('woff2'),
-         url('https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
+/* Chinese Rocks Font */
+@import url('https://fonts.cdnfonts.com/css/chinese-rocks');
