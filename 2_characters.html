@@ -16,11 +16,10 @@
         }
 
         body {
-            margin: 0;
-            overflow-x: hidden;
-            font-family: sans-serif;
+            font-family: 'Chinese Rocks', 'Impact', sans-serif;
             background: #000;
-            color: #d4a574;
+            color: white;
+            overflow-x: hidden;
         }
 
         /* Header Styles */
@@ -125,40 +124,9 @@
             z-index: 10;
         }
 
+        /* Character Scroll Sections */
         .scroll-wrapper {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-2 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-3 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-4 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-5 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-6 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-7 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-8 {
-            height: 700vh;
-        }
-
-        .scroll-wrapper-9 {
-            height: 700vh;
+            height: 100vh;
         }
 
         .pin-section {
@@ -175,115 +143,30 @@
             left: 0;
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .image-layer img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.7);
+            filter: brightness(0.6);
         }
 
-        #background-image {
-            z-index: 10;
-        }
-
-        #middle-image {
-            z-index: 20;
-        }
-
-        #foreground-image {
-            z-index: 30;
-        }
-
-        .text-overlay {
+        /* Text Container */
+        .text-container {
             position: absolute;
-            z-index: 40;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .text-overlay h1 {
-            font-size: 5vw;
-            margin: 0;
-            font-weight: 900;
-            color: #d4a574;
-            text-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
-        }
-
-        .video-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 20px;
-            background-color: #0a0a0a;
-        }
-
-        .video-section h2 {
-            font-size: 3vw;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .video-section video {
-            width: 80%;
-            max-width: 1200px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .video-section:nth-of-type(even) {
-            background-color: #151515;
-        }
-
-        .character-text {
-            position: absolute;
-            z-index: 25;
-            left: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            max-width: 400px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .character-text h2 {
-            font-family: 'Chinese Rocks', 'Courier New', serif;
-            font-size: 3vw;
-            color: #d4a574;
-            margin: 0 0 20px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            letter-spacing: 2px;
-        }
-
-        .character-text p {
-            font-family: 'Chinese Rocks', 'Courier New', serif;
-            font-size: 1.2vw;
-            line-height: 1.6;
-            color: #e8d5b7;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            border-left: 3px solid #d4a574;
-            padding-left: 20px;
-        }
-
-        .character-text-2 {
-            position: absolute;
-            z-index: 35;
+            z-index: 50;
             left: 5%;
             top: 50%;
             transform: translateY(-50%);
             max-width: 500px;
-            opacity: 1;
-            pointer-events: none;
+            opacity: 0;
         }
 
-        .character-text-2 h2 {
+        .text-container h2 {
             font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
             font-size: 2.2vw;
             color: #d4a574;
@@ -293,17 +176,7 @@
             text-transform: uppercase;
         }
 
-        .character-text-2 .subtitle {
-            font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
-            font-size: 1.8vw;
-            color: #d4a574;
-            margin: 0 0 15px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .character-text-2 p {
+        .text-container p {
             font-family: 'Chinese Rocks', 'Arial Black', sans-serif;
             font-size: 1.5vw;
             line-height: 1.5;
@@ -311,98 +184,6 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
             letter-spacing: 1px;
             text-transform: uppercase;
-        }
-
-        /* Character text for other sections */
-        .character-text-3,
-        .character-text-4,
-        .character-text-5,
-        .character-text-6,
-        .character-text-7,
-        .character-text-8,
-        .character-text-9,
-        .character-text-10,
-        .character-text-11,
-        .character-text-12,
-        .character-text-13,
-        .character-text-14,
-        .character-text-15,
-        .character-text-16,
-        .character-text-17,
-        .character-text-18,
-        .character-text-19,
-        .character-text-20,
-        .character-text-21,
-        .character-text-22,
-        .character-text-23 {
-            position: absolute;
-            z-index: 25;
-            left: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            max-width: 450px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .character-text-3 h2,
-        .character-text-4 h2,
-        .character-text-5 h2,
-        .character-text-6 h2,
-        .character-text-7 h2,
-        .character-text-8 h2,
-        .character-text-9 h2,
-        .character-text-10 h2,
-        .character-text-11 h2,
-        .character-text-12 h2,
-        .character-text-13 h2,
-        .character-text-14 h2,
-        .character-text-15 h2,
-        .character-text-16 h2,
-        .character-text-17 h2,
-        .character-text-18 h2,
-        .character-text-19 h2,
-        .character-text-20 h2,
-        .character-text-21 h2,
-        .character-text-22 h2,
-        .character-text-23 h2 {
-            font-family: 'Chinese Rocks', 'Courier New', serif;
-            font-size: 2.5vw;
-            color: #d4a574;
-            margin: 0 0 20px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            letter-spacing: 2px;
-        }
-
-        .character-text-3 p,
-        .character-text-4 p,
-        .character-text-5 p,
-        .character-text-6 p,
-        .character-text-7 p,
-        .character-text-8 p,
-        .character-text-9 p,
-        .character-text-10 p,
-        .character-text-11 p,
-        .character-text-12 p,
-        .character-text-13 p,
-        .character-text-14 p,
-        .character-text-15 p,
-        .character-text-16 p,
-        .character-text-17 p,
-        .character-text-18 p,
-        .character-text-19 p,
-        .character-text-20 p,
-        .character-text-21 p,
-        .character-text-22 p,
-        .character-text-23 p {
-            font-family: 'Chinese Rocks', 'Courier New', serif;
-            font-size: 1.2vw;
-            line-height: 1.6;
-            color: #e8d5b7;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            border-left: 3px solid #d4a574;
-            padding-left: 20px;
-            margin-bottom: 10px;
         }
 
         /* Mobile Responsiveness */
@@ -428,10 +209,6 @@
                 padding: 5px 10px;
             }
 
-            .hero-section {
-                padding: 100px 20px 60px;
-            }
-
             .hero-section h1 {
                 font-size: 1.5rem;
                 letter-spacing: 2px;
@@ -444,158 +221,19 @@
                 top: 42%;
             }
 
-            /* Character text adjustments for mobile */
-            .character-text,
-            .character-text-2,
-            .character-text-3,
-            .character-text-4,
-            .character-text-5,
-            .character-text-6,
-            .character-text-7,
-            .character-text-8,
-            .character-text-9,
-            .character-text-10,
-            .character-text-11,
-            .character-text-12,
-            .character-text-13,
-            .character-text-14,
-            .character-text-15,
-            .character-text-16,
-            .character-text-17,
-            .character-text-18,
-            .character-text-19,
-            .character-text-20,
-            .character-text-21,
-            .character-text-22,
-            .character-text-23 {
+            .text-container {
                 left: 5%;
                 right: 5%;
                 max-width: 90%;
+                opacity: 1 !important;
             }
 
-            .character-text h2,
-            .character-text-2 h2,
-            .character-text-3 h2,
-            .character-text-4 h2,
-            .character-text-5 h2,
-            .character-text-6 h2,
-            .character-text-7 h2,
-            .character-text-8 h2,
-            .character-text-9 h2,
-            .character-text-10 h2,
-            .character-text-11 h2,
-            .character-text-12 h2,
-            .character-text-13 h2,
-            .character-text-14 h2,
-            .character-text-15 h2,
-            .character-text-16 h2,
-            .character-text-17 h2,
-            .character-text-18 h2,
-            .character-text-19 h2,
-            .character-text-20 h2,
-            .character-text-21 h2,
-            .character-text-22 h2,
-            .character-text-23 h2 {
+            .text-container h2 {
                 font-size: 5vw;
             }
 
-            .character-text p,
-            .character-text-2 p,
-            .character-text-3 p,
-            .character-text-4 p,
-            .character-text-5 p,
-            .character-text-6 p,
-            .character-text-7 p,
-            .character-text-8 p,
-            .character-text-9 p,
-            .character-text-10 p,
-            .character-text-11 p,
-            .character-text-12 p,
-            .character-text-13 p,
-            .character-text-14 p,
-            .character-text-15 p,
-            .character-text-16 p,
-            .character-text-17 p,
-            .character-text-18 p,
-            .character-text-19 p,
-            .character-text-20 p,
-            .character-text-21 p,
-            .character-text-22 p,
-            .character-text-23 p {
-                font-size: 3vw;
-            }
-
-            /* Disable GSAP scroll animations on mobile - simple vertical stack */
-            .scroll-wrapper,
-            .scroll-wrapper-2,
-            .scroll-wrapper-3,
-            .scroll-wrapper-4,
-            .scroll-wrapper-5,
-            .scroll-wrapper-6,
-            .scroll-wrapper-7,
-            .scroll-wrapper-8,
-            .scroll-wrapper-9 {
-                height: auto !important;
-                /* Remove tall scroll height */
-                min-height: 100vh;
-                /* Each section takes at least full screen */
-            }
-
-            .pin-section {
-                position: relative !important;
-                /* Disable sticky positioning */
-                height: 100vh !important;
-                /* Each section is full screen */
-                min-height: 100vh;
-            }
-
-            /* Make all images visible and stacked */
-            .image-layer {
-                position: absolute !important;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 1 !important;
-                /* Force all images to be visible */
-            }
-
-            /* Make all character text visible on mobile */
-            .character-text,
-            .character-text-2,
-            .character-text-3,
-            .character-text-4,
-            .character-text-5,
-            .character-text-6,
-            .character-text-7,
-            .character-text-8,
-            .character-text-9,
-            .character-text-10,
-            .character-text-11,
-            .character-text-12,
-            .character-text-13,
-            .character-text-14,
-            .character-text-15,
-            .character-text-16,
-            .character-text-17,
-            .character-text-18,
-            .character-text-19,
-            .character-text-20,
-            .character-text-21,
-            .character-text-22,
-            .character-text-23 {
-                opacity: 1 !important;
-                position: static !important;
-                /* Change from absolute to static */
-                display: block !important;
-                left: auto !important;
-                top: auto !important;
-                transform: none !important;
-                z-index: 100 !important;
-                padding: 20px;
-                margin: 20px 0;
-                background: rgba(0, 0, 0, 0.7);
-                /* Add background for readability */
+            .text-container p {
+                font-size: 3.5vw;
             }
         }
 
@@ -629,56 +267,12 @@
                 top: 44%;
             }
 
-            .character-text h2,
-            .character-text-2 h2,
-            .character-text-3 h2,
-            .character-text-4 h2,
-            .character-text-5 h2,
-            .character-text-6 h2,
-            .character-text-7 h2,
-            .character-text-8 h2,
-            .character-text-9 h2,
-            .character-text-10 h2,
-            .character-text-11 h2,
-            .character-text-12 h2,
-            .character-text-13 h2,
-            .character-text-14 h2,
-            .character-text-15 h2,
-            .character-text-16 h2,
-            .character-text-17 h2,
-            .character-text-18 h2,
-            .character-text-19 h2,
-            .character-text-20 h2,
-            .character-text-21 h2,
-            .character-text-22 h2,
-            .character-text-23 h2 {
+            .text-container h2 {
                 font-size: 6vw;
             }
 
-            .character-text p,
-            .character-text-2 p,
-            .character-text-3 p,
-            .character-text-4 p,
-            .character-text-5 p,
-            .character-text-6 p,
-            .character-text-7 p,
-            .character-text-8 p,
-            .character-text-9 p,
-            .character-text-10 p,
-            .character-text-11 p,
-            .character-text-12 p,
-            .character-text-13 p,
-            .character-text-14 p,
-            .character-text-15 p,
-            .character-text-16 p,
-            .character-text-17 p,
-            .character-text-18 p,
-            .character-text-19 p,
-            .character-text-20 p,
-            .character-text-21 p,
-            .character-text-22 p,
-            .character-text-23 p {
-                font-size: 3.5vw;
+            .text-container p {
+                font-size: 4vw;
             }
         }
     </style>
@@ -705,26 +299,16 @@
         <h2>Story Characters</h2>
     </section>
 
-    <!-- Scroll Section 1 -->
+    <!-- Character Scroll Sections -->
+
+    <!-- Arthur Morgan -->
     <div class="scroll-wrapper">
         <section class="pin-section">
-            <div class="image-layer" id="background-image">
-                <img src="cowboy2.png" alt="Background Image">
+            <div class="image-layer" id="arthur-img">
+                <img src="cowboy1.png" alt="Arthur Morgan">
             </div>
-            <div class="image-layer" id="middle-image">
-                <img src="cowboy1.png" alt="Middle Image">
-            </div>
-
-            <div class="character-text">
-                <h2>DUTCH VAN DER LINDE</h2>
-                <p>"We need more money and time."</p>
-                <p>The charismatic outlaw leader with grand visions and dangerous plans. A man torn between his ideals
-                    and the brutal reality of the changing West.</p>
-            </div>
-
-            <div class="character-text-2">
+            <div class="text-container" id="arthur-text">
                 <h2>ARTHUR MORGAN</h2>
-                <p class="subtitle">Outlaw - The Heart of the Gang</p>
                 <p>"We're thieves in a world that don't want us no more."</p>
                 <p>A man haunted by loyalty and the weight of his past. Morgan stands as the most complex soul in the
                     Van Der Linde brotherhood.</p>
@@ -732,33 +316,58 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-2">
-        <section class="pin-section" id="section-2">
-            <div class="image-layer" id="background-image-2">
-                <img src="cowboy3.png" alt="Background Image 2">
+    <!-- Dutch Van Der Linde -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="dutch-img">
+                <img src="cowboy2.png" alt="Dutch Van Der Linde">
             </div>
-            <div class="image-layer" id="middle-image-2">
-                <img src="cowboy4.png" alt="Middle Image 2">
+            <div class="text-container" id="dutch-text">
+                <h2>DUTCH VAN DER LINDE</h2>
+                <p>"We need more money and time."</p>
+                <p>The charismatic outlaw leader with grand visions and dangerous plans. A man torn between his ideals
+                    and the brutal reality of the changing West.</p>
             </div>
-            <div class="image-layer" id="foreground-image-2">
-                <img src="cowboy5.png" alt="Foreground Image 2">
-            </div>
+        </section>
+    </div>
 
-            <div class="character-text-3">
+    <!-- Sadie Adler -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="sadie-img">
+                <img src="cowboy3.png" alt="Sadie Adler">
+            </div>
+            <div class="text-container" id="sadie-text">
                 <h2>SADIE ADLER</h2>
                 <p>"I'm gonna kill every last one of them."</p>
                 <p>A widow turned warrior. Sadie transforms from a grieving rancher's wife into one of the gang's most
                     fearless and deadly members, driven by vengeance and survival.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-4">
+    <!-- Charles Smith -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="charles-img">
+                <img src="cowboy4.png" alt="Charles Smith">
+            </div>
+            <div class="text-container" id="charles-text">
                 <h2>CHARLES SMITH</h2>
                 <p>"We get shot or we shoot them."</p>
                 <p>A skilled hunter and tracker of mixed heritage. Charles brings quiet strength and moral clarity to
                     the gang, always ready to fight for what's right.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-5">
+    <!-- John Marston -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="john-img">
+                <img src="cowboy5.png" alt="John Marston">
+            </div>
+            <div class="text-container" id="john-text">
                 <h2>JOHN MARSTON</h2>
                 <p>"We all got to go sometime."</p>
                 <p>Dutch's protégé struggling to find his place. A loyal outlaw torn between his duties to the gang and
@@ -767,33 +376,43 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-3">
-        <section class="pin-section" id="section-3">
-            <div class="image-layer" id="background-image-3">
-                <img src="cowboy6.png" alt="Background Image 3">
+    <!-- Javier Escuella -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="javier-img">
+                <img src="cowboy6.png" alt="Javier Escuella">
             </div>
-            <div class="image-layer" id="middle-image-3">
-                <img src="cowboy7.png" alt="Middle Image 3">
-            </div>
-            <div class="image-layer" id="foreground-image-3">
-                <img src="cowboy8.png" alt="Foreground Image 3">
-            </div>
-
-            <div class="character-text-6">
+            <div class="text-container" id="javier-text">
                 <h2>JAVIER ESCUELLA</h2>
                 <p>"I am a cynic. I see bad in everything."</p>
                 <p>A Mexican revolutionary and skilled gunslinger. Javier's fierce loyalty to Dutch conflicts with his
                     growing doubts about the gang's direction.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-7">
+    <!-- Lenny Summers -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="lenny-img">
+                <img src="cowboy7.png" alt="Lenny Summers">
+            </div>
+            <div class="text-container" id="lenny-text">
                 <h2>LENNY SUMMERS</h2>
                 <p>"This is America, where a lying, cheating degenerate like myself can prosper."</p>
                 <p>A young, educated outlaw with a quick wit and sharp mind. Lenny brings intelligence and optimism to
                     the gang despite the harsh realities around him.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-8">
+    <!-- Sean MacGuire -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="sean-img">
+                <img src="cowboy8.png" alt="Sean MacGuire">
+            </div>
+            <div class="text-container" id="sean-text">
                 <h2>SEAN MACGUIRE</h2>
                 <p>"I love being an outlaw!"</p>
                 <p>An Irish hothead full of bravado and humor. Sean's loud personality and reckless courage make him
@@ -802,33 +421,43 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-4">
-        <section class="pin-section" id="section-4">
-            <div class="image-layer" id="background-image-4">
-                <img src="cowboy9.png" alt="Background Image 4">
+    <!-- Micah Bell -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="micah-img">
+                <img src="cowboy9.png" alt="Micah Bell">
             </div>
-            <div class="image-layer" id="middle-image-4">
-                <img src="cowboy10.png" alt="Middle Image 4">
-            </div>
-            <div class="image-layer" id="foreground-image-4">
-                <img src="cowboy11.png" alt="Foreground Image 4">
-            </div>
-
-            <div class="character-text-9">
+            <div class="text-container" id="micah-text">
                 <h2>MICAH BELL</h2>
                 <p>"I'm a survivor, Black Lung."</p>
                 <p>A manipulative and ruthless outlaw. Micah's self-serving nature and cruel methods create tension
                     within the gang, earning him distrust from most members.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-10">
+    <!-- Bill Williamson -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="bill-img">
+                <img src="cowboy10.png" alt="Bill Williamson">
+            </div>
+            <div class="text-container" id="bill-text">
                 <h2>BILL WILLIAMSON</h2>
                 <p>"I ain't got no imagination."</p>
                 <p>A hot-tempered and insecure enforcer. Bill's loyalty to Dutch is unquestioning, but his volatile
                     nature and need for acceptance make him dangerous.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-11">
+    <!-- Hosea Matthews -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="hosea-img">
+                <img src="cowboy11.png" alt="Hosea Matthews">
+            </div>
+            <div class="text-container" id="hosea-text">
                 <h2>HOSEA MATTHEWS</h2>
                 <p>"It's a fine night for it."</p>
                 <p>Dutch's oldest friend and the gang's wise counselor. Hosea's intelligence and pragmatism balance
@@ -837,33 +466,43 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-5">
-        <section class="pin-section" id="section-5">
-            <div class="image-layer" id="background-image-5">
-                <img src="cowboy12.png" alt="Background Image 5">
+    <!-- Abigail Roberts -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="abigail-img">
+                <img src="cowboy12.png" alt="Abigail Roberts">
             </div>
-            <div class="image-layer" id="middle-image-5">
-                <img src="cowboy13.png" alt="Middle Image 5">
-            </div>
-            <div class="image-layer" id="foreground-image-5">
-                <img src="cowboy14.png" alt="Foreground Image 5">
-            </div>
-
-            <div class="character-text-12">
+            <div class="text-container" id="abigail-text">
                 <h2>ABIGAIL ROBERTS</h2>
                 <p>"We can't change what's done, we can only move on."</p>
                 <p>A former working girl turned devoted mother. Abigail fights fiercely for her son Jack and struggles
                     to keep John on the right path.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-13">
+    <!-- Jack Marston -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="jack-img">
+                <img src="cowboy13.png" alt="Jack Marston">
+            </div>
+            <div class="text-container" id="jack-text">
                 <h2>JACK MARSTON</h2>
                 <p>"I want to be just like you and papa when I grow up."</p>
                 <p>John and Abigail's young son, innocent yet curious about the outlaw life. Jack represents the hope
                     for a better future beyond the gang.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-14">
+    <!-- Mary-Beth Gaskill -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="marybeth-img">
+                <img src="cowboy14.png" alt="Mary-Beth Gaskill">
+            </div>
+            <div class="text-container" id="marybeth-text">
                 <h2>MARY-BETH GASKILL</h2>
                 <p>"I may be a thief, but I ain't no liar."</p>
                 <p>A sweet-natured romantic with nimble fingers. Mary-Beth dreams of becoming a writer while using her
@@ -872,33 +511,43 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-6">
-        <section class="pin-section" id="section-6">
-            <div class="image-layer" id="background-image-6">
-                <img src="cowboy15.png" alt="Background Image 6">
+    <!-- Karen Jones -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="karen-img">
+                <img src="cowboy15.png" alt="Karen Jones">
             </div>
-            <div class="image-layer" id="middle-image-6">
-                <img src="cowboy16.png" alt="Middle Image 6">
-            </div>
-            <div class="image-layer" id="foreground-image-6">
-                <img src="cowboy17.png" alt="Foreground Image 6">
-            </div>
-
-            <div class="character-text-15">
+            <div class="text-container" id="karen-text">
                 <h2>KAREN JONES</h2>
                 <p>"I rob banks, not old ladies."</p>
                 <p>A tough and witty con artist with a drinking problem. Karen's bravado masks deep insecurities as she
                     participates in the gang's more dangerous schemes.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-16">
+    <!-- Uncle -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="uncle-img">
+                <img src="cowboy16.png" alt="Uncle">
+            </div>
+            <div class="text-container" id="uncle-text">
                 <h2>UNCLE</h2>
                 <p>"I got lumbago. It's very serious."</p>
                 <p>The camp's lazy but lovable drunk. Uncle claims various ailments to avoid work, but his stories and
                     humor keep spirits up around the campfire.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-17">
+    <!-- Reverend Swanson -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="reverend-img">
+                <img src="cowboy17.png" alt="Reverend Swanson">
+            </div>
+            <div class="text-container" id="reverend-text">
                 <h2>REVEREND SWANSON</h2>
                 <p>"We can't always fight nature, John."</p>
                 <p>A fallen preacher battling addiction. Swanson seeks redemption while struggling with his demons,
@@ -907,33 +556,43 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-7">
-        <section class="pin-section" id="section-7">
-            <div class="image-layer" id="background-image-7">
-                <img src="cowboy18.png" alt="Background Image 7">
+    <!-- Josiah Trelawny -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="trelawny-img">
+                <img src="cowboy18.png" alt="Josiah Trelawny">
             </div>
-            <div class="image-layer" id="middle-image-7">
-                <img src="cowboy19.png" alt="Middle Image 7">
-            </div>
-            <div class="image-layer" id="foreground-image-7">
-                <img src="cowboy20.png" alt="Foreground Image 7">
-            </div>
-
-            <div class="character-text-18">
+            <div class="text-container" id="trelawny-text">
                 <h2>JOSIAH TRELAWNY</h2>
                 <p>"I am a conjurer, not a con man."</p>
                 <p>A flamboyant trickster and part-time member. Trelawny's mysterious double life and elaborate schemes
                     make him both useful and unpredictable.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-19">
+    <!-- Tilly Jackson -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="tilly-img">
+                <img src="cowboy19.png" alt="Tilly Jackson">
+            </div>
+            <div class="text-container" id="tilly-text">
                 <h2>TILLY JACKSON</h2>
                 <p>"I ain't going back to that life."</p>
                 <p>A young woman who escaped a worse gang. Tilly seeks a normal life and brings kindness and
                     practicality to the camp's women.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-20">
+    <!-- Susan Grimshaw -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="susan-img">
+                <img src="cowboy20.png" alt="Susan Grimshaw">
+            </div>
+            <div class="text-container" id="susan-text">
                 <h2>SUSAN GRIMSHAW</h2>
                 <p>"This camp ought to be ashamed of itself."</p>
                 <p>The camp's stern matriarch and enforcer. Miss Grimshaw runs a tight ship, keeping everyone in line
@@ -942,33 +601,43 @@
         </section>
     </div>
 
-    <div class="scroll-wrapper-8">
-        <section class="pin-section" id="section-8">
-            <div class="image-layer" id="background-image-8">
-                <img src="cowboy21.png" alt="Background Image 8">
+    <!-- Simon Pearson -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="pearson-img">
+                <img src="cowboy21.png" alt="Simon Pearson">
             </div>
-            <div class="image-layer" id="middle-image-8">
-                <img src="cowboy22.png" alt="Middle Image 8">
-            </div>
-            <div class="image-layer" id="foreground-image-8">
-                <img src="cowboy23.png" alt="Foreground Image 8">
-            </div>
-
-            <div class="character-text-21">
+            <div class="text-container" id="pearson-text">
                 <h2>SIMON PEARSON</h2>
                 <p>"I was in the Navy, you know."</p>
                 <p>The camp's portly cook and merchant. Pearson feeds the gang while boring them with tales of his
                     supposed naval adventures.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-22">
+    <!-- Kieran Duffy -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="kieran-img">
+                <img src="cowboy22.png" alt="Kieran Duffy">
+            </div>
+            <div class="text-container" id="kieran-text">
                 <h2>KIERAN DUFFY</h2>
                 <p>"I'm one of you now, ain't I?"</p>
                 <p>A former O'Driscoll Boy turned hostage. Kieran desperately tries to prove his loyalty to the Van der
                     Linde gang despite constant suspicion.</p>
             </div>
+        </section>
+    </div>
 
-            <div class="character-text-23">
+    <!-- Leopold Strauss -->
+    <div class="scroll-wrapper">
+        <section class="pin-section">
+            <div class="image-layer" id="strauss-img">
+                <img src="cowboy23.png" alt="Leopold Strauss">
+            </div>
+            <div class="text-container" id="strauss-text">
                 <h2>LEOPOLD STRAUSS</h2>
                 <p>"Everyone pays their debts, eventually."</p>
                 <p>The gang's cold-hearted loan shark. Strauss profits from desperate people's misery, handling the
@@ -978,527 +647,88 @@
     </div>
 
     <script>
-        // Detect mobile devices - skip GSAP animations on mobile
-        const isMobile = window.innerWidth <= 768;
+        gsap.registerPlugin(ScrollTrigger);
 
-        if (!isMobile) {
-            // Desktop only: Initialize GSAP ScrollTrigger animations
-            gsap.registerPlugin(ScrollTrigger);
+        const characters = [
+            'arthur', 'dutch', 'sadie', 'charles', 'john', 'javier', 'lenny', 'sean',
+            'micah', 'bill', 'hosea', 'abigail', 'jack', 'marybeth', 'karen', 'uncle',
+            'reverend', 'trelawny', 'tilly', 'susan', 'pearson', 'kieran', 'strauss'
+        ];
 
-            // Section 1 Animation - Arthur to Dutch
-            let tl = gsap.timeline({
+        characters.forEach((character, index) => {
+            const imgElement = document.getElementById(`${character}-img`);
+            const textElement = document.getElementById(`${character}-text`);
+
+            // First character (Arthur) appears instantly
+            if (index === 0) {
+                gsap.set(imgElement, { opacity: 1, scale: 1 });
+                gsap.set(textElement, { opacity: 1, x: 0 });
+
+                // Fade out Arthur when scrolling
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: imgElement.closest('.scroll-wrapper'),
+                        start: 'top top',
+                        end: '+=200%',
+                        scrub: 0.5,
+                        pin: true,
+                    }
+                });
+
+                tl.to(textElement, {
+                    opacity: 0,
+                    x: -100,
+                    ease: "power2.in"
+                }, 0);
+
+                tl.to(imgElement, {
+                    opacity: 0,
+                    scale: 0.8,
+                    ease: "power2.inOut"
+                }, 0.3);
+
+                return;
+            }
+
+            // All other characters with fade-in/fade-out
+            const tl = gsap.timeline({
                 scrollTrigger: {
-                    trigger: ".pin-section",
+                    trigger: imgElement.closest('.scroll-wrapper'),
+                    start: 'top top',
+                    end: '+=200%',
                     scrub: 0.5,
                     pin: true,
-                    start: "top top",
-                    end: "+=600%"
                 }
             });
 
-            tl.to(".character-text-2", {
+            // Fade in image
+            tl.fromTo(imgElement,
+                { opacity: 0, scale: 0.8 },
+                { opacity: 1, scale: 1, ease: "power2.inOut" },
+                0
+            );
+
+            // Fade in text
+            tl.fromTo(textElement,
+                { opacity: 0, x: -50 },
+                { opacity: 1, x: 0, ease: "power2.out" },
+                0.2
+            );
+
+            // Fade out text
+            tl.to(textElement, {
                 opacity: 0,
                 x: -100,
                 ease: "power2.in"
-            }, 0);
+            }, 0.8);
 
-            tl.to("#middle-image", {
+            // Fade out image
+            tl.to(imgElement, {
+                opacity: 0,
                 scale: 0.8,
-                opacity: 0,
                 ease: "power2.inOut"
-            }, 1.0);
-
-            tl.fromTo(".character-text", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.0);
-
-            tl.to(".character-text", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 2 Animation - Sadie, Charles, John
-            let tl2 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-2",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl2.fromTo(".character-text-5", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl2.to("#foreground-image-2", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl2.to(".character-text-5", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl2.fromTo(".character-text-4", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl2.to("#middle-image-2", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl2.to(".character-text-4", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl2.fromTo(".character-text-3", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl2.to(".character-text-3", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 3 Animation - Javier, Lenny, Sean
-            let tl3 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-3",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl3.fromTo(".character-text-8", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl3.to("#foreground-image-3", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl3.to(".character-text-8", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl3.fromTo(".character-text-7", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl3.to("#middle-image-3", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl3.to(".character-text-7", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl3.fromTo(".character-text-6", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl3.to(".character-text-6", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 4 Animation - Micah, Bill, Hosea
-            let tl4 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-4",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl4.fromTo(".character-text-11", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl4.to("#foreground-image-4", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl4.to(".character-text-11", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl4.fromTo(".character-text-10", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl4.to("#middle-image-4", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl4.to(".character-text-10", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl4.fromTo(".character-text-9", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl4.to(".character-text-9", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 5 Animation - Abigail, Jack, Mary-Beth
-            let tl5 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-5",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl5.fromTo(".character-text-14", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl5.to("#foreground-image-5", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl5.to(".character-text-14", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl5.fromTo(".character-text-13", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl5.to("#middle-image-5", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl5.to(".character-text-13", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl5.fromTo(".character-text-12", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl5.to(".character-text-12", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 6 Animation - Karen, Uncle, Reverend
-            let tl6 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-6",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl6.fromTo(".character-text-17", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl6.to("#foreground-image-6", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl6.to(".character-text-17", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl6.fromTo(".character-text-16", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl6.to("#middle-image-6", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl6.to(".character-text-16", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl6.fromTo(".character-text-15", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl6.to(".character-text-15", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 7 Animation - Trelawny, Tilly, Grimshaw
-            let tl7 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-7",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl7.fromTo(".character-text-20", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl7.to("#foreground-image-7", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl7.to(".character-text-20", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl7.fromTo(".character-text-19", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl7.to("#middle-image-7", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl7.to(".character-text-19", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl7.fromTo(".character-text-18", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl7.to(".character-text-18", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-
-            // Section 8 Animation - Pearson, Kieran, Strauss
-            let tl8 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#section-8",
-                    scrub: 0.5,
-                    pin: true,
-                    start: "top top",
-                    end: "+=600%"
-                }
-            });
-
-            tl8.fromTo(".character-text-23", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0);
-
-            tl8.to("#foreground-image-8", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 0.5);
-
-            tl8.to(".character-text-23", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 0.5);
-
-            tl8.fromTo(".character-text-22", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 0.6);
-
-            tl8.to("#middle-image-8", {
-                scale: 0.8,
-                opacity: 0,
-                ease: "power2.inOut"
-            }, 1.0);
-
-            tl8.to(".character-text-22", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.0);
-
-            tl8.fromTo(".character-text-21", {
-                opacity: 0,
-                x: -50
-            }, {
-                opacity: 1,
-                x: 0,
-                ease: "power2.out"
-            }, 1.1);
-
-            tl8.to(".character-text-21", {
-                opacity: 0,
-                x: -100,
-                ease: "power2.in"
-            }, 1.8);
-        } // End of desktop-only GSAP animations
+            }, 0.95);
+        });
     </script>
 </body>
 
