@@ -315,52 +315,8 @@
         });
 
         function zoomToVideo() {
-            // Get logo position
-            const logoRect = logo.getBoundingClientRect();
-            const logoCenterX = logoRect.left + logoRect.width / 2;
-            const logoCenterY = logoRect.top + logoRect.height / 2;
-
-            // Show video overlay
-            videoOverlay.style.pointerEvents = 'auto';
-            mainVideo.play();
-
-            // Animate zoom effect
-            const timeline = gsap.timeline({
-                onComplete: () => {
-                    // After animation, redirect to index page
-                    window.location.href = '1_index.html';
-                }
-            });
-
-            // Fade in overlay
-            timeline.to(videoOverlay, {
-                opacity: 1,
-                duration: 0.3,
-                ease: 'power2.in'
-            });
-
-            // Zoom in video from logo position
-            timeline.fromTo(mainVideo,
-                {
-                    scale: 0,
-                    x: logoCenterX - window.innerWidth / 2,
-                    y: logoCenterY - window.innerHeight / 2
-                },
-                {
-                    scale: 1,
-                    x: 0,
-                    y: 0,
-                    duration: 1.2,
-                    ease: 'power3.inOut'
-                },
-                '-=0.2'
-            );
-
-            // Hide cursor
-            gsap.to(cursor, {
-                opacity: 0,
-                duration: 0.3
-            });
+            // Navigate directly to the home page without video transition
+            window.location.href = '1_index.html';
         }
 
         // Smooth animation loop
