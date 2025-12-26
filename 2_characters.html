@@ -560,7 +560,7 @@
                 /* Force all images to be visible */
             }
 
-            /* Make all character text visible on mobile */
+            /* Hide all character text by default on mobile */
             .character-text,
             .character-text-2,
             .character-text-3,
@@ -584,15 +584,34 @@
             .character-text-21,
             .character-text-22,
             .character-text-23 {
+                display: none !important;
+                /* Hide all text by default */
+            }
+
+            /* Show only the LAST character text in each section (the main one) */
+            .character-text-2,
+            /* Section 1: Arthur (last in section) */
+            .character-text-5,
+            /* Section 2: John (last in section) */
+            .character-text-8,
+            /* Section 3: Javier (last in section) */
+            .character-text-11,
+            /* Section 4: Hosea (last in section) */
+            .character-text-14,
+            /* Section 5: Mary-Beth (last in section) */
+            .character-text-17,
+            /* Section 6: Reverend (last in section) */
+            .character-text-20,
+            /* Section 7: Susan (last in section) */
+            .character-text-23 {
+                /* Section 8: Leopold (last in section) */
+                display: block !important;
                 opacity: 1 !important;
-                /* Force all text to be visible */
                 position: absolute !important;
-                /* Keep text overlaid on images */
                 left: 5% !important;
                 top: 50% !important;
                 transform: translateY(-50%) !important;
                 z-index: 100 !important;
-                /* Ensure text is above images */
             }
         }
 
