@@ -402,22 +402,35 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Mobile video playback fallback
-        const allVideos = document.querySelectorAll('video');
-        let videosPlayed = false;
+        // Detect mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        // Try to play all videos on first touch (mobile fallback)
-        document.addEventListener('touchstart', function playVideosOnTouch() {
-            if (!videosPlayed) {
-                allVideos.forEach(video => {
-                    video.play().catch(error => {
-                        console.log('Video play failed:', error);
+        // Mobile-only: Play videos when they become visible during scroll
+        if (isMobile) {
+            allVideos.forEach(video => {
+                // Pause all videos initially on mobile
+                video.pause();
+
+                // Create an intersection observer to play video when it's visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Video is visible, play it
+                            video.play().catch(error => {
+                                console.log('Video play failed:', error);
+                            });
+                        } else {
+                            // Video is not visible, pause it
+                            video.pause();
+                        }
                     });
+                }, {
+                    threshold: 0.5 // Play when 50% of video is visible
                 });
-                videosPlayed = true;
-                document.removeEventListener('touchstart', playVideosOnTouch);
-            }
-        }, { once: true });
+
+                observer.observe(video);
+            });
+        }
 
         const sections = [
             'camping1', 'camping2', 'camping3',
